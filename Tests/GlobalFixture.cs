@@ -27,7 +27,7 @@ public class GlobalFixture
     protected static List<Employee> GetSimpleEmployees(int count)
     {
         var employees = new List<Employee>();
-        
+
         for (var i = 0; i < count; i++)
         {
             var id = i + 1;

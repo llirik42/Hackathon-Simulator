@@ -57,9 +57,15 @@ public class EmployeesGenerator : IEnumerable<object[]>
         }
     ];
 
-    public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+    public IEnumerator<object[]> GetEnumerator()
+    {
+        return _data.GetEnumerator();
+    }
 
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 }
 
 public class WishlistsProviderTests : GlobalFixture
@@ -69,10 +75,10 @@ public class WishlistsProviderTests : GlobalFixture
     public void TestWishlistsSize(List<Employee> teamLeads, List<Employee> juniors)
     {
         var provider = GetService<IWishlistProvider>();
-        
+
         var juniorsWishlists = provider.ProvideJuniorsWishlists(juniors, teamLeads).ToList();
         var teamLeadsWishlists = provider.ProvideTeamLeadsWishlists(juniors, teamLeads).ToList();
-        
+
         Assert.Equal(teamLeadsWishlists.Count, teamLeads.Count);
         Assert.Equal(juniorsWishlists.Count, juniors.Count);
     }
@@ -82,37 +88,31 @@ public class WishlistsProviderTests : GlobalFixture
     public void TestWishlistsOwners(List<Employee> teamLeads, List<Employee> juniors)
     {
         var provider = GetService<IWishlistProvider>();
-        
+
         var juniorsIds = juniors.Select(j => j.Id).ToHashSet();
         var teamLeadsIds = teamLeads.Select(j => j.Id).ToHashSet();
-        
+
         var juniorsWishlists = provider.ProvideJuniorsWishlists(juniors, teamLeads).ToList();
         var teamLeadsWishlists = provider.ProvideTeamLeadsWishlists(juniors, teamLeads).ToList();
-        
+
         Assert.Equal(teamLeadsWishlists.Select(w => w.EmployeeId).ToHashSet(), teamLeadsIds);
         Assert.Equal(juniorsWishlists.Select(w => w.EmployeeId).ToHashSet(), juniorsIds);
     }
-    
+
     [Theory]
     [ClassData(typeof(EmployeesGenerator))]
     public void TestWishlistsDesiredEmployees(List<Employee> teamLeads, List<Employee> juniors)
     {
         var provider = GetService<IWishlistProvider>();
-        
+
         var juniorsIds = juniors.Select(j => j.Id).ToHashSet();
         var teamLeadsIds = teamLeads.Select(j => j.Id).ToHashSet();
-        
+
         var juniorsWishlists = provider.ProvideJuniorsWishlists(juniors, teamLeads).ToList();
         var teamLeadsWishlists = provider.ProvideTeamLeadsWishlists(juniors, teamLeads).ToList();
-        
-        foreach (var tw in teamLeadsWishlists)
-        {
-            Assert.Equal(tw.DesiredEmployees.ToHashSet(), juniorsIds);
-        }
-        
-        foreach (var jw in juniorsWishlists)
-        {
-            Assert.Equal(jw.DesiredEmployees.ToHashSet(), teamLeadsIds);
-        }
+
+        foreach (var tw in teamLeadsWishlists) Assert.Equal(tw.DesiredEmployees.ToHashSet(), juniorsIds);
+
+        foreach (var jw in juniorsWishlists) Assert.Equal(jw.DesiredEmployees.ToHashSet(), teamLeadsIds);
     }
 }
