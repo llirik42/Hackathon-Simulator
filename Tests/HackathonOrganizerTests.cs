@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Tests;
 
-public class HackathonOrganizerTests : Fixture
+public class HackathonOrganizerTests : GlobalFixture
 {
     [Theory]
     [InlineData(1)]
@@ -16,8 +16,8 @@ public class HackathonOrganizerTests : Fixture
     [InlineData(100)]
     public void TestPerfectMatch(int count)
     {
-        var teamLeads = getSimpleEmployees(count);
-        var juniors = getSimpleEmployees(count);
+        var teamLeads = GetSimpleEmployees(count);
+        var juniors = GetSimpleEmployees(count);
         var teamLeadsWishlists = new List<Wishlist>();
         var juniorsWishlists = new List<Wishlist>();
 
@@ -41,8 +41,8 @@ public class HackathonOrganizerTests : Fixture
     public void TestSomePreferences()
     {
         const int count = 4;
-        var teamLeads = getSimpleEmployees(count);
-        var juniors = getSimpleEmployees(count);
+        var teamLeads = GetSimpleEmployees(count);
+        var juniors = GetSimpleEmployees(count);
 
         List<Wishlist> teamLeadsWishlists =
         [

@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Tests;
 
-public class HrDirectorTests : Fixture
+public class HrDirectorTests : GlobalFixture
 {
     [Fact]
     public void TestAlgorithm()
@@ -23,8 +23,8 @@ public class HrDirectorTests : Fixture
     public void TestTeamsHarmonization1()
     {
         const int count = 5;
-        var teamLeads = getSimpleEmployees(count);
-        var juniors = getSimpleEmployees(count);
+        var teamLeads = GetSimpleEmployees(count);
+        var juniors = GetSimpleEmployees(count);
 
         List<Wishlist> teamLeadsWishlists =
         [
@@ -63,8 +63,8 @@ public class HrDirectorTests : Fixture
     public void TestTeamsHarmonization2()
     {
         const int count = 10;
-        var teamLeads = getSimpleEmployees(count);
-        var juniors = getSimpleEmployees(count);
+        var teamLeads = GetSimpleEmployees(count);
+        var juniors = GetSimpleEmployees(count);
 
         List<Wishlist> teamLeadsWishlists =
         [

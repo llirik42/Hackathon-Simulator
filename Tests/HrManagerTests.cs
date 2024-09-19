@@ -1,7 +1,6 @@
 namespace Tests;
 
-public class HrManagerTests
+public class HrManagerTests : GlobalFixture
 {
-    
     
 }

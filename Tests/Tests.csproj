@@ -25,6 +25,7 @@
       <ProjectReference Include="..\HackathonOrganizer\HackathonOrganizer.csproj" />
       <ProjectReference Include="..\HrDirector\HrDirector.csproj" />
       <ProjectReference Include="..\HrManager\HrManager.csproj" />
+      <ProjectReference Include="..\RandomWishlistsProvider\RandomWishlistsProvider.csproj" />
     </ItemGroup>
 
 </Project>
