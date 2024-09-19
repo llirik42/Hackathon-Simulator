@@ -36,4 +36,13 @@ public class GlobalFixture
 
         return employees;
     }
+
+    protected static void ShiftLeft<T>(List<T> list, int shift)
+    {
+        var copy = new List<T>(list);
+
+        for (var i = shift; i < list.Count; i++) list[i - shift] = list[i];
+
+        for (var i = list.Count - shift; i < list.Count; i++) list[i] = copy[i + shift - list.Count];
+    }
 }
