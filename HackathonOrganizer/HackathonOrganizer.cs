@@ -13,7 +13,7 @@ public class HackathonOrganizer(IHarmonizationCalculator calculator, ITeamBuildi
 
         var teams = strategy.BuildTeams(teamLeads, juniors, teamLeadsWishlistsList, juniorsWishlistsList);
         var teamsList = teams.ToList();
-        var harmonization = calculator.Calculate(teamsList, teamLeadsWishlistsList, juniorsWishlistsList);
+        var harmonization = calculator.CalculateTeamsHarmonization(teamsList, teamLeadsWishlistsList, juniorsWishlistsList);
 
         return new HackathonMembers(teamsList, harmonization);
     }

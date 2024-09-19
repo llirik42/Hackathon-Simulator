@@ -2,8 +2,10 @@ namespace Contracts;
 
 public interface IHarmonizationCalculator
 {
-    double Calculate(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
+    double CalculateValue(double[] numbers);
+    
+    double CalculateTeamsHarmonization(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
         IEnumerable<Wishlist> juniorsWishlists);
-
+    
     double CalculateEmployeeHarmonization(int[] desiredEmployees, int desiredEmployeeId);
 }

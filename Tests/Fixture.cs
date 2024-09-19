@@ -22,4 +22,17 @@ public class Fixture
     {
         return _scope.ServiceProvider.GetRequiredService<T>();
     }
+
+    protected List<Employee> getSimpleEmployees(int count)
+    {
+        var employees = new List<Employee>();
+        
+        for (var i = 0; i < count; i++)
+        {
+            var id = i + 1;
+            employees.Add(new Employee(id, $"{id}"));
+        }
+
+        return employees;
+    }
 }

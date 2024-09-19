@@ -16,8 +16,8 @@ public class HackathonOrganizerTests : Fixture
     [InlineData(100)]
     public void TestPerfectMatch(int count)
     {
-        var teamLeads = new List<Employee>();
-        var juniors = new List<Employee>();
+        var teamLeads = getSimpleEmployees(count);
+        var juniors = getSimpleEmployees(count);
         var teamLeadsWishlists = new List<Wishlist>();
         var juniorsWishlists = new List<Wishlist>();
 
@@ -26,8 +26,6 @@ public class HackathonOrganizerTests : Fixture
         for (var i = 0; i < count; i++)
         {
             var id = i + 1;
-            teamLeads.Add(new Employee(id, $"Team-lead {id}"));
-            juniors.Add(new Employee(id, $"Junior {id}"));
             teamLeadsWishlists.Add(new Wishlist(id, desiredEmployees.ToArray()));
             juniorsWishlists.Add(new Wishlist(id, desiredEmployees.ToArray()));
             ShiftLeft(desiredEmployees, 1);
@@ -43,15 +41,8 @@ public class HackathonOrganizerTests : Fixture
     public void TestSomePreferences()
     {
         const int count = 4;
-        var teamLeads = new List<Employee>();
-        var juniors = new List<Employee>();
-
-        for (var i = 0; i < count; i++)
-        {
-            var id = i + 1;
-            teamLeads.Add(new Employee(id, $"Team-lead {id}"));
-            juniors.Add(new Employee(id, $"Junior {id}"));
-        }
+        var teamLeads = getSimpleEmployees(count);
+        var juniors = getSimpleEmployees(count);
 
         List<Wishlist> teamLeadsWishlists =
         [

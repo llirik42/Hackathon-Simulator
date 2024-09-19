@@ -42,8 +42,8 @@ public class HrManager(IHarmonizationCalculator harmonizationCalculator) : ITeam
             result2.Add(new Team(teamLead, junior));
         }
 
-        var harmonization1 = harmonizationCalculator.Calculate(result1, teamLeadsWishlistsList, juniorsWishlistsList);
-        var harmonization2 = harmonizationCalculator.Calculate(result2, teamLeadsWishlistsList, juniorsWishlistsList);
+        var harmonization1 = harmonizationCalculator.CalculateTeamsHarmonization(result1, teamLeadsWishlistsList, juniorsWishlistsList);
+        var harmonization2 = harmonizationCalculator.CalculateTeamsHarmonization(result2, teamLeadsWishlistsList, juniorsWishlistsList);
 
         return harmonization1 > harmonization2 ? result1 : result2;
     }
