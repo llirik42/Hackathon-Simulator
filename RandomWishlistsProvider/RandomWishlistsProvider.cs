@@ -2,16 +2,16 @@
 
 namespace RandomWishlistsProvider;
 
-public class RandomWishlistsProvider(List<Employee> juniors, List<Employee> teamLeads) : IWishlistProvider
+public class RandomWishlistsProvider(int seed = 0) : IWishlistProvider
 {
-    private readonly Random _random = new(0);
+    private readonly Random _random = new(seed);
 
-    public IEnumerable<Wishlist> ProvideJuniorsWishlists()
+    public IEnumerable<Wishlist> ProvideJuniorsWishlists(List<Employee> juniors, List<Employee> teamLeads)
     {
         return ProvideWishlists(juniors, teamLeads);
     }
 
-    public IEnumerable<Wishlist> ProvideTeamLeadsWishlists()
+    public IEnumerable<Wishlist> ProvideTeamLeadsWishlists(List<Employee> juniors, List<Employee> teamLeads)
     {
         return ProvideWishlists(teamLeads, juniors);
     }

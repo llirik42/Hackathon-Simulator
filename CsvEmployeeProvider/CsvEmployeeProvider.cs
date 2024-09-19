@@ -6,25 +6,13 @@ using CsvHelper.Configuration;
 
 namespace CsvEmployeeProvider;
 
-public class CsvEmployeeProvider : IEmployeeProvider
+public class CsvEmployeeProvider(string delimiter, Encoding encoding) : IEmployeeProvider
 {
     private readonly CsvConfiguration _configuration = new(CultureInfo.InvariantCulture)
     {
-        Delimiter = ",",
-        Encoding = Encoding.UTF8
+        Delimiter = delimiter,
+        Encoding = encoding
     };
-
-    public string Delimiter
-    {
-        get => _configuration.Delimiter;
-        set => _configuration.Delimiter = value;
-    }
-
-    public Encoding Encoding
-    {
-        get => _configuration.Encoding;
-        set => _configuration.Encoding = value;
-    }
 
     public List<Employee> Provide(string filePath)
     {

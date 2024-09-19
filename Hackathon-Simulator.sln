@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{8F115B9A-A5F0-4E1E-BE9D-63708EFA1702}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{19A726DB-7E9C-492E-A177-3F228EF81D80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{69781170-FA03-4F8E-829F-3F17A30145BD}"
@@ -19,16 +17,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HrManager", "HrManager\HrMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonOrganizer", "HackathonOrganizer\HackathonOrganizer.csproj", "{198D581D-B117-4023-B626-5D4779FF67E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{A4FC7CB0-0021-4BE1-B207-9D5858E1F405}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8F115B9A-A5F0-4E1E-BE9D-63708EFA1702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F115B9A-A5F0-4E1E-BE9D-63708EFA1702}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F115B9A-A5F0-4E1E-BE9D-63708EFA1702}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F115B9A-A5F0-4E1E-BE9D-63708EFA1702}.Release|Any CPU.Build.0 = Release|Any CPU
 		{19A726DB-7E9C-492E-A177-3F228EF81D80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{19A726DB-7E9C-492E-A177-3F228EF81D80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19A726DB-7E9C-492E-A177-3F228EF81D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,5 +53,9 @@ Global
 		{198D581D-B117-4023-B626-5D4779FF67E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{198D581D-B117-4023-B626-5D4779FF67E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{198D581D-B117-4023-B626-5D4779FF67E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4FC7CB0-0021-4BE1-B207-9D5858E1F405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4FC7CB0-0021-4BE1-B207-9D5858E1F405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4FC7CB0-0021-4BE1-B207-9D5858E1F405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4FC7CB0-0021-4BE1-B207-9D5858E1F405}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
