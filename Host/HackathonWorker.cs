@@ -3,8 +3,8 @@ using Microsoft.Extensions.Hosting;
 
 public class HackathonWorker(
     IEmployeeProvider employeeProvider,
-    IHackathonOrganizer organizer
-) : BackgroundService
+    IHackathonOrganizer organizer,
+    IWishlistProvider wishlistProvider) : BackgroundService
 {
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -15,7 +15,9 @@ public class HackathonWorker(
         const int iterationsCount = 1000;
         for (var i = 0; i < iterationsCount; i++)
         {
-            var members = organizer.Organize(teamLeads, juniors);
+            var teamLeadsWishlists = wishlistProvider.ProvideTeamLeadsWishlists(juniors, teamLeads);
+            var juniorsWishlists = wishlistProvider.ProvideJuniorsWishlists(juniors, teamLeads);
+            var members = organizer.Organize(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
             var harmonization = members.Harmonization;
             avg += harmonization;
             Console.WriteLine(harmonization);

@@ -2,23 +2,18 @@
 
 namespace HackathonOrganizer;
 
-public class HackathonOrganizer(
-    IHarmonizationCalculator calculator,
-    ITeamBuildingStrategy strategy,
-    IWishlistProvider wishlistProvider)
+public class HackathonOrganizer(IHarmonizationCalculator calculator, ITeamBuildingStrategy strategy)
     : IHackathonOrganizer
 {
-    public HackathonMembers Organize(IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors)
+    public HackathonMembers Organize(IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors,
+        IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists)
     {
-        var teamLeadsList = teamLeads.ToList();
-        var juniorsList = juniors.ToList();
+        var teamLeadsWishlistsList = teamLeadsWishlists.ToList();
+        var juniorsWishlistsList = juniorsWishlists.ToList();
 
-        var teamLeadsWishlists = wishlistProvider.ProvideTeamLeadsWishlists(juniorsList, teamLeadsList).ToList();
-        var juniorsWishlists = wishlistProvider.ProvideJuniorsWishlists(juniorsList, teamLeadsList).ToList();
-
-        var teams = strategy.BuildTeams(teamLeadsList, juniorsList, teamLeadsWishlists, juniorsWishlists);
+        var teams = strategy.BuildTeams(teamLeads, juniors, teamLeadsWishlistsList, juniorsWishlistsList);
         var teamsList = teams.ToList();
-        var harmonization = calculator.Calculate(teamsList, teamLeadsWishlists, juniorsWishlists);
+        var harmonization = calculator.Calculate(teamsList, teamLeadsWishlistsList, juniorsWishlistsList);
 
         return new HackathonMembers(teamsList, harmonization);
     }
