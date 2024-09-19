@@ -76,11 +76,11 @@ public class WishlistsProviderTests : GlobalFixture
     {
         var provider = GetService<IWishlistProvider>();
 
-        var juniorsWishlists = provider.ProvideJuniorsWishlists(juniors, teamLeads).ToList();
-        var teamLeadsWishlists = provider.ProvideTeamLeadsWishlists(juniors, teamLeads).ToList();
+        var juniorsWishlists = provider.ProvideJuniorsWishlists(juniors, teamLeads);
+        var teamLeadsWishlists = provider.ProvideTeamLeadsWishlists(juniors, teamLeads);
 
-        Assert.Equal(teamLeadsWishlists.Count, teamLeads.Count);
-        Assert.Equal(juniorsWishlists.Count, juniors.Count);
+        Assert.Equal(teamLeadsWishlists.Count(), teamLeads.Count);
+        Assert.Equal(juniorsWishlists.Count(), juniors.Count);
     }
 
     [Theory]
@@ -92,8 +92,8 @@ public class WishlistsProviderTests : GlobalFixture
         var juniorsIds = juniors.Select(j => j.Id).ToHashSet();
         var teamLeadsIds = teamLeads.Select(j => j.Id).ToHashSet();
 
-        var juniorsWishlists = provider.ProvideJuniorsWishlists(juniors, teamLeads).ToList();
-        var teamLeadsWishlists = provider.ProvideTeamLeadsWishlists(juniors, teamLeads).ToList();
+        var juniorsWishlists = provider.ProvideJuniorsWishlists(juniors, teamLeads);
+        var teamLeadsWishlists = provider.ProvideTeamLeadsWishlists(juniors, teamLeads);
 
         Assert.Equal(teamLeadsWishlists.Select(w => w.EmployeeId).ToHashSet(), teamLeadsIds);
         Assert.Equal(juniorsWishlists.Select(w => w.EmployeeId).ToHashSet(), juniorsIds);
@@ -108,8 +108,8 @@ public class WishlistsProviderTests : GlobalFixture
         var juniorsIds = juniors.Select(j => j.Id).ToHashSet();
         var teamLeadsIds = teamLeads.Select(j => j.Id).ToHashSet();
 
-        var juniorsWishlists = provider.ProvideJuniorsWishlists(juniors, teamLeads).ToList();
-        var teamLeadsWishlists = provider.ProvideTeamLeadsWishlists(juniors, teamLeads).ToList();
+        var juniorsWishlists = provider.ProvideJuniorsWishlists(juniors, teamLeads);
+        var teamLeadsWishlists = provider.ProvideTeamLeadsWishlists(juniors, teamLeads);
 
         foreach (var tw in teamLeadsWishlists) Assert.Equal(tw.DesiredEmployees.ToHashSet(), juniorsIds);
 
