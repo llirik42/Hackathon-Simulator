@@ -9,30 +9,34 @@ public class EmployeesGenerator : IEnumerable<object[]>
     private static readonly List<Employee> TeamLeads1 = [new(1, "Team-lead 1")];
     private static readonly List<Employee> Juniors1 = [new(1, "Junior 1")];
     private static readonly List<Employee>[] Members1 = [TeamLeads1, Juniors1];
-    
+
     private static readonly List<Employee> TeamLeads2 =
     [
         new(1, "Team-lead 1"),
         new(2, "Team-lead 2")
     ];
+
     private static readonly List<Employee> Juniors2 =
     [
         new(13, "Junior 13")
     ];
+
     private static readonly List<Employee>[] Members2 = [TeamLeads2, Juniors2];
-    
+
     private static readonly List<Employee> TeamLeads3 =
     [
         new(1, "Team-lead 1"),
         new(2, "Team-lead 2")
     ];
+
     private static readonly List<Employee> Juniors3 =
     [
         new(6, "Junior 6"),
         new(17, "Junior 17")
     ];
+
     private static readonly List<Employee>[] Members3 = [TeamLeads3, Juniors3];
-    
+
     private static readonly List<Employee> TeamLeads4 =
     [
         new(1, "Team-lead 1"),
@@ -40,6 +44,7 @@ public class EmployeesGenerator : IEnumerable<object[]>
         new(3, "Team-lead 3"),
         new(4, "Team-lead 4")
     ];
+
     private static readonly List<Employee> Juniors4 =
     [
         new(101, "Junior 101"),
@@ -50,8 +55,9 @@ public class EmployeesGenerator : IEnumerable<object[]>
         new(106, "Junior 106"),
         new(107, "Junior 107")
     ];
+
     private static readonly List<Employee>[] Members4 = [TeamLeads4, Juniors4];
-    
+
     private static readonly List<List<Employee>[]> Data =
     [
         Members1,

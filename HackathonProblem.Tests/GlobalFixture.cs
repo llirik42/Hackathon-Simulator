@@ -24,6 +24,11 @@ public class GlobalFixture
         return _scope.ServiceProvider.GetRequiredService<T>();
     }
 
+    private static Employee GetSimpleEmployee(int id)
+    {
+        return new Employee(id, $"{id}");
+    }
+
     protected static List<Employee> GetSimpleEmployees(int count)
     {
         var employees = new List<Employee>();
@@ -31,7 +36,7 @@ public class GlobalFixture
         for (var i = 0; i < count; i++)
         {
             var id = i + 1;
-            employees.Add(new Employee(id, $"{id}"));
+            employees.Add(GetSimpleEmployee(id));
         }
 
         return employees;

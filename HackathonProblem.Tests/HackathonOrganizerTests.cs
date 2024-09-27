@@ -1,4 +1,5 @@
 using HackathonProblem.Contracts;
+using Moq;
 using Xunit;
 
 namespace HackathonProblem.Tests;
@@ -64,5 +65,29 @@ public class HackathonOrganizerTests : GlobalFixture
             .Organize(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
 
         Assert.Equal(2.526, Math.Round(members.Harmonization, 3));
+    }
+
+    [Fact]
+    public void TestHrManagerCallsCount()
+    {
+        var teamLeads = new List<Employee>();
+        var juniors = new List<Employee>();
+        var teamLeadsWishlists = new List<Wishlist>();
+        var juniorsWishlists = new List<Wishlist>();
+
+        var mockedCalculator = new Mock<IHarmonizationCalculator>();
+        var mockedStrategy = new Mock<ITeamBuildingStrategy>();
+
+        mockedStrategy.Setup(x => x.BuildTeams(
+            It.IsAny<List<Employee>>(),
+            It.IsAny<List<Employee>>(),
+            It.IsAny<List<Wishlist>>(),
+            It.IsAny<List<Wishlist>>()
+        )).Returns(new List<Team>());
+
+        var organizer = new HackathonOrganizer.HackathonOrganizer(mockedCalculator.Object, mockedStrategy.Object);
+        organizer.Organize(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
+
+        mockedStrategy.Verify(x => x.BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists), Times.Once);
     }
 }

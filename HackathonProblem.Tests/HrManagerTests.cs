@@ -1,4 +1,5 @@
 using HackathonProblem.Contracts;
+using Moq;
 using Xunit;
 
 namespace HackathonProblem.Tests;
@@ -23,8 +24,9 @@ public class HrManagerTests : GlobalFixture
         var teamLeadsWishlists = wishlistProvider.ProvideTeamLeadsWishlists(juniors, teamLeads);
         var juniorsWishlists = wishlistProvider.ProvideJuniorsWishlists(juniors, teamLeads);
 
-        var teams = GetService<ITeamBuildingStrategy>()
-            .BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
+        var mockedCalculator = new Mock<IHarmonizationCalculator>();
+        var hrManager = new HrManager.HrManager(mockedCalculator.Object);
+        var teams = hrManager.BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
 
         Assert.Equal(count, teams.Count());
     }
@@ -58,8 +60,9 @@ public class HrManagerTests : GlobalFixture
         var expectedTeams = new List<Team>();
         for (var i = 0; i < count; i++) expectedTeams.Add(new Team(teamLeads[i], juniors[i]));
 
-        var actualTeams = GetService<ITeamBuildingStrategy>()
-            .BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
+        var mockedCalculator = new Mock<IHarmonizationCalculator>();
+        var hrManager = new HrManager.HrManager(mockedCalculator.Object);
+        var actualTeams = hrManager.BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
 
         Assert.Equal(expectedTeams, actualTeams);
     }
