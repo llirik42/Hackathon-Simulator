@@ -15,6 +15,7 @@
     <ItemGroup>
       <ProjectReference Include="..\HackathonProblem.Contracts\HackathonProblem.Contracts.csproj" />
       <ProjectReference Include="..\HackathonProblem.CsvEmployeeProvider\HackathonProblem.CsvEmployeeProvider.csproj" />
+      <ProjectReference Include="..\HackathonProblem.Db\HackathonProblem.Db.csproj" />
       <ProjectReference Include="..\HackathonProblem.HackathonOrganizer\HackathonProblem.HackathonOrganizer.csproj" />
       <ProjectReference Include="..\HackathonProblem.HrDirector\HackathonProblem.HrDirector.csproj" />
       <ProjectReference Include="..\HackathonProblem.HrManager\HackathonProblem.HrManager.csproj" />
