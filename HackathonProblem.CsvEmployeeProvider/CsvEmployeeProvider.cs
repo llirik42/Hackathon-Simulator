@@ -16,10 +16,17 @@ public class CsvEmployeeProvider(string delimiter, Encoding encoding) : IEmploye
 
     public List<Employee> Provide(string filePath)
     {
-        using var fs = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-        using var textReader = new StreamReader(fs, _configuration.Encoding);
-        using var csvReader = new CsvReader(textReader, _configuration);
+        try
+        {
+            using var fs = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using var textReader = new StreamReader(fs, _configuration.Encoding);
+            using var csvReader = new CsvReader(textReader, _configuration);
 
-        return csvReader.GetRecords<Employee>().ToList();
+            return csvReader.GetRecords<Employee>().ToList();
+        }
+        catch (Exception exception)
+        {
+            throw new CsvEmployeeProviderException("Providing failed", exception);
+        }
     }
 }
