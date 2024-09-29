@@ -5,6 +5,8 @@ namespace HackathonProblem.Db;
 
 public class ApplicationContext : DbContext
 {
+    private readonly StreamWriter logStream = new("db-log.txt", true);
+    
     public ApplicationContext()
     {
         Database.EnsureCreated();
@@ -20,6 +22,8 @@ public class ApplicationContext : DbContext
         const string connectionString =
             "Host=localhost;Port=5432;Database=hackathon;Username=hackathon;Password=hackathon-password";
         optionsBuilder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
+        
+        optionsBuilder.LogTo(logStream.WriteLine);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,5 +41,19 @@ public class ApplicationContext : DbContext
         modelBuilder.Entity<Preference>()
             .ToTable(t => t.HasCheckConstraint("Priority", "desired_member_priority > 0"));
         modelBuilder.Entity<Preference>().HasKey(p => new { p.HackathonId, p.MemberId, p.DesiredMemberId });
+    }
+    
+    public override void Dispose()
+    {
+        base.Dispose();
+        logStream.Dispose();
+        GC.SuppressFinalize(this);
+    }
+ 
+    public override async ValueTask DisposeAsync()
+    {
+        await base.DisposeAsync();
+        await logStream.DisposeAsync();
+        GC.SuppressFinalize(this);
     }
 }
