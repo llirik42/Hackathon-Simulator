@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using HackathonProblem.Contracts;
+using HackathonProblem.Contracts.services;
 using HackathonProblem.CsvEmployeeProvider;
 using HackathonProblem.HackathonOrganizer;
 using HackathonProblem.Host;

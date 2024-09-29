@@ -1,5 +1,6 @@
 using System.Collections;
-using HackathonProblem.Contracts;
+using HackathonProblem.Contracts.dto;
+using HackathonProblem.Contracts.services;
 using Xunit;
 
 namespace HackathonProblem.Tests;

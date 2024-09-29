@@ -1,4 +1,5 @@
-﻿using HackathonProblem.Contracts;
+﻿using HackathonProblem.Contracts.dto;
+using HackathonProblem.Contracts.services;
 
 namespace HackathonProblem.HrManager;
 
@@ -42,8 +43,10 @@ public class HrManager(IHarmonizationCalculator harmonizationCalculator) : ITeam
             result2.Add(new Team(teamLead, junior));
         }
 
-        var harmonization1 = harmonizationCalculator.CalculateTeamsHarmonization(result1, teamLeadsWishlistsList, juniorsWishlistsList);
-        var harmonization2 = harmonizationCalculator.CalculateTeamsHarmonization(result2, teamLeadsWishlistsList, juniorsWishlistsList);
+        var harmonization1 =
+            harmonizationCalculator.CalculateTeamsHarmonization(result1, teamLeadsWishlistsList, juniorsWishlistsList);
+        var harmonization2 =
+            harmonizationCalculator.CalculateTeamsHarmonization(result2, teamLeadsWishlistsList, juniorsWishlistsList);
 
         return harmonization1 > harmonization2 ? result1 : result2;
     }
@@ -126,10 +129,7 @@ public class HrManager(IHarmonizationCalculator harmonizationCalculator) : ITeam
                 var potentialHarmonization =
                     harmonizationCalculator.CalculateEmployeeHarmonization(desiredSenders, potentialSenderId);
 
-                if (potentialHarmonization <= currentHarmonization)
-                {
-                    continue;
-                }
+                if (potentialHarmonization <= currentHarmonization) continue;
 
                 // Forget previously chosen sender and choose new one
                 choices[receiverId] = potentialSenderIndex;

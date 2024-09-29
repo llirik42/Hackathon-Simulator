@@ -1,4 +1,6 @@
-namespace HackathonProblem.Contracts;
+using HackathonProblem.Contracts.dto;
+
+namespace HackathonProblem.Contracts.services;
 
 public interface IHackathonOrganizer
 {

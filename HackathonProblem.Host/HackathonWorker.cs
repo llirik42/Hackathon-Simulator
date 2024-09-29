@@ -1,4 +1,4 @@
-using HackathonProblem.Contracts;
+using HackathonProblem.Contracts.services;
 using Microsoft.Extensions.Hosting;
 
 namespace HackathonProblem.Host;

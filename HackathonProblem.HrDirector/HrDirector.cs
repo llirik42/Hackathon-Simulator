@@ -1,4 +1,5 @@
-﻿using HackathonProblem.Contracts;
+﻿using HackathonProblem.Contracts.dto;
+using HackathonProblem.Contracts.services;
 
 namespace HackathonProblem.HrDirector;
 
@@ -8,14 +9,11 @@ public class HrDirector : IHarmonizationCalculator
     {
         double result = 0;
 
-        foreach (var n in numbers)
-        {
-            result += 1 / n;
-        }
+        foreach (var n in numbers) result += 1 / n;
 
         return numbers.Length / result;
     }
-    
+
     public double CalculateTeamsHarmonization(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
         IEnumerable<Wishlist> juniorsWishlists)
     {
@@ -24,7 +22,7 @@ public class HrDirector : IHarmonizationCalculator
         var teamLeadsWishlistsList = teamLeadsWishlists.ToList();
 
         var harmonizationValues = new List<double>();
-        
+
         foreach (var t in teamsList)
         {
             var juniorId = t.Junior.Id;
@@ -35,14 +33,14 @@ public class HrDirector : IHarmonizationCalculator
 
             var juniorHarmonization = CalculateEmployeeHarmonization(juniorWishlist.DesiredEmployees, teamLeadId);
             var teamLeadHarmonization = CalculateEmployeeHarmonization(teamLeadWishlist.DesiredEmployees, juniorId);
-            
+
             harmonizationValues.Add(juniorHarmonization);
             harmonizationValues.Add(teamLeadHarmonization);
         }
 
         return CalculateValue(harmonizationValues.ToArray());
     }
-    
+
     public double CalculateEmployeeHarmonization(int[] desiredEmployees, int desiredEmployeeId)
     {
         return desiredEmployees.Length - Array.IndexOf(desiredEmployees, desiredEmployeeId);

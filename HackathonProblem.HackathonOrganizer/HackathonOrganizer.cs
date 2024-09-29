@@ -1,4 +1,5 @@
-﻿using HackathonProblem.Contracts;
+﻿using HackathonProblem.Contracts.dto;
+using HackathonProblem.Contracts.services;
 
 namespace HackathonProblem.HackathonOrganizer;
 
@@ -13,7 +14,8 @@ public class HackathonOrganizer(IHarmonizationCalculator calculator, ITeamBuildi
 
         var teams = strategy.BuildTeams(teamLeads, juniors, teamLeadsWishlistsList, juniorsWishlistsList);
         var teamsList = teams.ToList();
-        var harmonization = calculator.CalculateTeamsHarmonization(teamsList, teamLeadsWishlistsList, juniorsWishlistsList);
+        var harmonization =
+            calculator.CalculateTeamsHarmonization(teamsList, teamLeadsWishlistsList, juniorsWishlistsList);
 
         return new HackathonMembers(teamsList, harmonization);
     }

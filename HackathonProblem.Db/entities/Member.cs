@@ -5,7 +5,6 @@ namespace HackathonProblem.Db.entities;
 public class Member
 {
     public int Id { get; init; }
-    
-    [MaxLength(64)]
-    public string Name { get; init; }
+
+    [MaxLength(64)] public string Name { get; init; }
 }

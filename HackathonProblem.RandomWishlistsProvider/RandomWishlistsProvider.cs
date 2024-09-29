@@ -1,4 +1,5 @@
-﻿using HackathonProblem.Contracts;
+﻿using HackathonProblem.Contracts.dto;
+using HackathonProblem.Contracts.services;
 
 namespace HackathonProblem.RandomWishlistsProvider;
 

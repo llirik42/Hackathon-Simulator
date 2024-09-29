@@ -2,7 +2,8 @@
 using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
-using HackathonProblem.Contracts;
+using HackathonProblem.Contracts.dto;
+using HackathonProblem.Contracts.services;
 
 namespace HackathonProblem.CsvEmployeeProvider;
 
