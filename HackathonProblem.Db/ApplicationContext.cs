@@ -5,7 +5,7 @@ namespace HackathonProblem.Db;
 
 public class ApplicationContext : DbContext
 {
-    private readonly StreamWriter logStream = new("db-log.txt", true);
+    private readonly StreamWriter _logStream = new("db-log.txt", true);
     
     public ApplicationContext()
     {
@@ -23,7 +23,7 @@ public class ApplicationContext : DbContext
             "Host=localhost;Port=5432;Database=hackathon;Username=hackathon;Password=hackathon-password";
         optionsBuilder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
         
-        optionsBuilder.LogTo(logStream.WriteLine);
+        optionsBuilder.LogTo(_logStream.WriteLine);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,14 +46,14 @@ public class ApplicationContext : DbContext
     public override void Dispose()
     {
         base.Dispose();
-        logStream.Dispose();
+        _logStream.Dispose();
         GC.SuppressFinalize(this);
     }
  
     public override async ValueTask DisposeAsync()
     {
         await base.DisposeAsync();
-        await logStream.DisposeAsync();
+        await _logStream.DisposeAsync();
         GC.SuppressFinalize(this);
     }
 }
