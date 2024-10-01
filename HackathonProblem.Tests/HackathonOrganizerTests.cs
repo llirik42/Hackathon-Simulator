@@ -33,10 +33,10 @@ public class HackathonOrganizerTests : GlobalFixture
             ShiftLeft(desiredEmployees, 1);
         }
 
-        var members = GetService<IHackathonOrganizer>()
+        var hackathon = GetService<IHackathonOrganizer>()
             .Organize(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
 
-        Assert.Equal(count, Math.Round(members.Harmonization));
+        Assert.Equal(count, Math.Round(hackathon.Harmonization));
     }
 
     [Fact]
@@ -62,10 +62,10 @@ public class HackathonOrganizerTests : GlobalFixture
             new(4, [3, 4, 1, 2])
         ];
 
-        var members = GetService<IHackathonOrganizer>()
+        var hackathon = GetService<IHackathonOrganizer>()
             .Organize(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
 
-        Assert.Equal(2.526, Math.Round(members.Harmonization, 3));
+        Assert.Equal(2.526, Math.Round(hackathon.Harmonization, 3));
     }
 
     [Fact]
