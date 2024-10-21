@@ -6,7 +6,8 @@ namespace HackathonProblem.Host;
 public class HackathonWorker(
     IEmployeeProvider employeeProvider,
     IHackathonOrganizer organizer,
-    IWishlistProvider wishlistProvider) : BackgroundService
+    IWishlistProvider wishlistProvider,
+    IHackathonService hackathonService) : BackgroundService
 {
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -14,12 +15,13 @@ public class HackathonWorker(
         var teamLeads = employeeProvider.Provide("assets/Teamleads50.csv");
 
         double avg = 0;
-        const int iterationsCount = 1000;
+        const int iterationsCount = 1;
         for (var i = 0; i < iterationsCount; i++)
         {
             var teamLeadsWishlists = wishlistProvider.ProvideTeamLeadsWishlists(juniors, teamLeads);
             var juniorsWishlists = wishlistProvider.ProvideJuniorsWishlists(juniors, teamLeads);
             var hackathon = organizer.Organize(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
+            hackathonService.SaveHackathon(hackathon, teamLeadsWishlists, juniorsWishlists);
             var harmonization = hackathon.Harmonization;
             avg += harmonization;
             Console.WriteLine(harmonization);

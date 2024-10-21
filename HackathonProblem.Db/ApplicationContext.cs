@@ -5,51 +5,62 @@ namespace HackathonProblem.Db;
 
 public class ApplicationContext : DbContext
 {
+    private readonly string _connectionString;
     private readonly StreamWriter _logStream = new("db-log.txt", true);
-    
-    public ApplicationContext()
+
+    public ApplicationContext(string userName, string password, string dbName, string address, int port)
     {
+        _connectionString = $"Host={address};Port={port};Database={dbName};Username={userName};Password={password}";
         Database.EnsureCreated();
     }
 
-    public DbSet<Member> Members { get; set; } = null!;
-    public DbSet<Hackathon> Hackathons { get; set; } = null!;
-    public DbSet<Team> Teams { get; set; } = null!;
-    public DbSet<Preference> Preferences { get; set; } = null!;
+    public DbSet<TeamLeadEntity> TeamLeads { get; set; } = null!;
+    public DbSet<JuniorEntity> Juniors { get; set; } = null!;
+    public DbSet<HackathonEntity> Hackathons { get; set; } = null!;
+    public DbSet<TeamEntity> Teams { get; set; } = null!;
+    public DbSet<TeamLeadPreferenceEntity> TeamLeadPreferences { get; set; } = null!;
+    public DbSet<JuniorPreferenceEntity> JuniorPreferences { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        const string connectionString =
-            "Host=localhost;Port=5432;Database=hackathon;Username=hackathon;Password=hackathon-password";
-        optionsBuilder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
-        
+        optionsBuilder.UseNpgsql(_connectionString).UseSnakeCaseNamingConvention();
         optionsBuilder.LogTo(_logStream.WriteLine);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Hackathon>()
+        modelBuilder.Entity<HackathonEntity>()
             .ToTable(t => t.HasCheckConstraint("Harmonization", "harmonization > 0"));
-        modelBuilder.Entity<Hackathon>()
+        modelBuilder.Entity<HackathonEntity>()
             .Property(h => h.CreationDate)
             .HasDefaultValueSql("now()");
 
-        modelBuilder.Entity<Team>()
+        modelBuilder.Entity<TeamEntity>()
             .ToTable(t => t.HasCheckConstraint("Harmonization", "harmonization > 0"));
-        modelBuilder.Entity<Team>().HasKey(t => new { t.HackathonId, t.TeamLeadId, t.JuniorId });
+        modelBuilder.Entity<TeamEntity>().HasKey(t => new { t.HackathonId, t.TeamLeadId, t.JuniorId });
 
-        modelBuilder.Entity<Preference>()
-            .ToTable(t => t.HasCheckConstraint("Priority", "desired_member_priority > 0"));
-        modelBuilder.Entity<Preference>().HasKey(p => new { p.HackathonId, p.MemberId, p.DesiredMemberId });
+        modelBuilder.Entity<TeamLeadPreferenceEntity>()
+            .ToTable(t => t.HasCheckConstraint("junior priority", "desired_junior_priority > 0"));
+        modelBuilder.Entity<TeamLeadPreferenceEntity>()
+            .HasKey(p => new { p.HackathonId, p.TeamLeadId, p.DesiredJuniorId });
+
+        modelBuilder.Entity<JuniorPreferenceEntity>()
+            .ToTable(t => t.HasCheckConstraint("team-lead priority", "desired_team_lead_priority > 0"));
+        modelBuilder.Entity<JuniorPreferenceEntity>()
+            .HasKey(p => new { p.HackathonId, p.JuniorId, p.DesiredTeamLeadId });
+
+        modelBuilder.Entity<HackathonEntity>(e => { e.Property(x => x.Id).UseHiLo(); });
+        modelBuilder.Entity<TeamLeadEntity>(e => { e.Property(x => x.Id).UseHiLo(); });
+        modelBuilder.Entity<JuniorEntity>(e => { e.Property(x => x.Id).UseHiLo(); });
     }
-    
+
     public override void Dispose()
     {
         base.Dispose();
         _logStream.Dispose();
         GC.SuppressFinalize(this);
     }
- 
+
     public override async ValueTask DisposeAsync()
     {
         await base.DisposeAsync();

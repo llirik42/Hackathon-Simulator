@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HackathonProblem.Db.entities;
 
-public class Member
+public class JuniorEntity
 {
     public int Id { get; init; }
 

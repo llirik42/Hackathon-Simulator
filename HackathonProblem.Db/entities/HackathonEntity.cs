@@ -1,6 +1,6 @@
 namespace HackathonProblem.Db.entities;
 
-public class Hackathon
+public class HackathonEntity
 {
     public int Id { get; init; }
 

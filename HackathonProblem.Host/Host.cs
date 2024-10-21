@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using HackathonProblem.Contracts.services;
 using HackathonProblem.CsvEmployeeProvider;
+using HackathonProblem.Db;
 using HackathonProblem.HackathonOrganizer;
 using HackathonProblem.Host;
 using HackathonProblem.HrDirector;
@@ -18,6 +19,8 @@ builder.Services.AddTransient<IWishlistProvider, RandomWishlistsProvider>();
 builder.Services.AddTransient<IHarmonizationCalculator, HrDirector>();
 builder.Services.AddTransient<ITeamBuildingStrategy, HrManager>();
 builder.Services.AddTransient<IHackathonOrganizer, HackathonOrganizer>();
+builder.Services.AddTransient<IHackathonService>(x =>
+    ActivatorUtilities.CreateInstance<HackathonService>(x, "hackathon", "password", "hackathon", "localhost", 5432));
 
 var host = builder.Build();
 

@@ -7,12 +7,12 @@ public class RandomWishlistsProvider(int seed = 0) : IWishlistProvider
 {
     private readonly Random _random = new(seed);
 
-    public IEnumerable<Wishlist> ProvideJuniorsWishlists(List<Employee> juniors, List<Employee> teamLeads)
+    public List<Wishlist> ProvideJuniorsWishlists(List<Employee> juniors, List<Employee> teamLeads)
     {
         return ProvideWishlists(juniors, teamLeads);
     }
 
-    public IEnumerable<Wishlist> ProvideTeamLeadsWishlists(List<Employee> juniors, List<Employee> teamLeads)
+    public List<Wishlist> ProvideTeamLeadsWishlists(List<Employee> juniors, List<Employee> teamLeads)
     {
         return ProvideWishlists(teamLeads, juniors);
     }

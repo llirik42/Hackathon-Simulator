@@ -1,15 +1,15 @@
 namespace HackathonProblem.Db.entities;
 
-public class Team
+public class TeamEntity
 {
     public int HackathonId { get; init; }
-    public Hackathon Hackathon { get; init; }
+    public HackathonEntity HackathonEntity { get; init; }
 
     public int TeamLeadId { get; init; }
-    public Member TeamLead { get; init; }
+    public TeamLeadEntity TeamLeadEntity { get; init; }
 
     public int JuniorId { get; init; }
-    public Member Junior { get; init; }
+    public JuniorEntity JuniorEntity { get; init; }
 
     public double Harmonization { get; init; }
 }
