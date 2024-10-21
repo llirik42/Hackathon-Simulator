@@ -8,9 +8,15 @@ public class ApplicationContext : DbContext
     private readonly string _connectionString;
     private readonly StreamWriter _logStream = new("db-log.txt", true);
 
-    public ApplicationContext(string userName, string password, string dbName, string address, int port)
+    public ApplicationContext(DbConfiguration configuration)
     {
+        var address = configuration.Address;
+        var port = configuration.Port;
+        var dbName = configuration.DbName;
+        var userName = configuration.UserName;
+        var password = configuration.Password;
         _connectionString = $"Host={address};Port={port};Database={dbName};Username={userName};Password={password}";
+        Database.EnsureDeleted();
         Database.EnsureCreated();
     }
 
@@ -38,20 +44,16 @@ public class ApplicationContext : DbContext
         modelBuilder.Entity<TeamEntity>()
             .ToTable(t => t.HasCheckConstraint("Harmonization", "harmonization > 0"));
         modelBuilder.Entity<TeamEntity>().HasKey(t => new { t.HackathonId, t.TeamLeadId, t.JuniorId });
-
+        
         modelBuilder.Entity<TeamLeadPreferenceEntity>()
             .ToTable(t => t.HasCheckConstraint("junior priority", "desired_junior_priority > 0"));
         modelBuilder.Entity<TeamLeadPreferenceEntity>()
-            .HasKey(p => new { p.HackathonId, p.TeamLeadId, p.DesiredJuniorId });
-
+            .HasKey(p => new { p.HackathonId, p.TeamLeadId, p.DesiredJuniorId, p.DesiredJuniorPriority });
+        
         modelBuilder.Entity<JuniorPreferenceEntity>()
             .ToTable(t => t.HasCheckConstraint("team-lead priority", "desired_team_lead_priority > 0"));
         modelBuilder.Entity<JuniorPreferenceEntity>()
-            .HasKey(p => new { p.HackathonId, p.JuniorId, p.DesiredTeamLeadId });
-
-        modelBuilder.Entity<HackathonEntity>(e => { e.Property(x => x.Id).UseHiLo(); });
-        modelBuilder.Entity<TeamLeadEntity>(e => { e.Property(x => x.Id).UseHiLo(); });
-        modelBuilder.Entity<JuniorEntity>(e => { e.Property(x => x.Id).UseHiLo(); });
+            .HasKey(p => new { p.HackathonId, p.JuniorId, p.DesiredTeamLeadId, p.DesiredTeamLeadPriority });
     }
 
     public override void Dispose()

@@ -21,7 +21,7 @@ public class HackathonWorker(
             var teamLeadsWishlists = wishlistProvider.ProvideTeamLeadsWishlists(juniors, teamLeads);
             var juniorsWishlists = wishlistProvider.ProvideJuniorsWishlists(juniors, teamLeads);
             var hackathon = organizer.Organize(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
-            hackathonService.SaveHackathon(hackathon, teamLeadsWishlists, juniorsWishlists);
+            Console.WriteLine(hackathonService.CreateHackathon(hackathon.Harmonization));
             var harmonization = hackathon.Harmonization;
             avg += harmonization;
             Console.WriteLine(harmonization);
