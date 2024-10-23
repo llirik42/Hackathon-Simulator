@@ -1,3 +1,3 @@
 namespace HackathonProblem.Contracts.dto;
 
-public record Hackathon(IEnumerable<Team> Teams, double Harmonization);
+public record Hackathon(List<Team> Teams, double Harmonization);

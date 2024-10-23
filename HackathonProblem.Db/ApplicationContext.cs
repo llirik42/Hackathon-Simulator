@@ -16,7 +16,6 @@ public class ApplicationContext : DbContext
         var userName = configuration.UserName;
         var password = configuration.Password;
         _connectionString = $"Host={address};Port={port};Database={dbName};Username={userName};Password={password}";
-        Database.EnsureDeleted();
         Database.EnsureCreated();
     }
 
@@ -46,12 +45,12 @@ public class ApplicationContext : DbContext
         modelBuilder.Entity<TeamEntity>().HasKey(t => new { t.HackathonId, t.TeamLeadId, t.JuniorId });
         
         modelBuilder.Entity<TeamLeadPreferenceEntity>()
-            .ToTable(t => t.HasCheckConstraint("junior priority", "desired_junior_priority > 0"));
+            .ToTable(t => t.HasCheckConstraint("junior priority", "desired_junior_priority >= 0"));
         modelBuilder.Entity<TeamLeadPreferenceEntity>()
             .HasKey(p => new { p.HackathonId, p.TeamLeadId, p.DesiredJuniorId, p.DesiredJuniorPriority });
         
         modelBuilder.Entity<JuniorPreferenceEntity>()
-            .ToTable(t => t.HasCheckConstraint("team-lead priority", "desired_team_lead_priority > 0"));
+            .ToTable(t => t.HasCheckConstraint("team-lead priority", "desired_team_lead_priority >= 0"));
         modelBuilder.Entity<JuniorPreferenceEntity>()
             .HasKey(p => new { p.HackathonId, p.JuniorId, p.DesiredTeamLeadId, p.DesiredTeamLeadPriority });
     }

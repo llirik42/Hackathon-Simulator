@@ -2,7 +2,6 @@
 using HackathonProblem.Contracts.services;
 using HackathonProblem.CsvEmployeeProvider;
 using HackathonProblem.Db;
-using HackathonProblem.Db.services;
 using HackathonProblem.HackathonOrganizer;
 using HackathonProblem.Host;
 using HackathonProblem.HrDirector;
@@ -15,6 +14,9 @@ var builder = Host.CreateApplicationBuilder(args);
 
 var dbConfiguration = new DbConfiguration("hackathon", "password", "hackathon", "localhost", 5432);
 
+
+builder.Services.AddSingleton<DbConfiguration>(_ => dbConfiguration);
+
 builder.Services.AddHostedService<HackathonWorker>();
 builder.Services.AddTransient<IEmployeeProvider>(x =>
     ActivatorUtilities.CreateInstance<CsvEmployeeProvider>(x, ";", Encoding.UTF8));
@@ -22,8 +24,7 @@ builder.Services.AddTransient<IWishlistProvider, RandomWishlistsProvider>();
 builder.Services.AddTransient<IHarmonizationCalculator, HrDirector>();
 builder.Services.AddTransient<ITeamBuildingStrategy, HrManager>();
 builder.Services.AddTransient<IHackathonOrganizer, HackathonOrganizer>();
-builder.Services.AddTransient<IHackathonService>(x =>
-    ActivatorUtilities.CreateInstance<HackathonService>(x, dbConfiguration));
+builder.Services.AddTransient<IDbService, DbService>();
 
 var host = builder.Build();
 
