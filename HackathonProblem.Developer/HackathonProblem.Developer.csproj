@@ -11,4 +11,16 @@
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\HackathonProblem.Common\HackathonProblem.Common.csproj" />
+      <ProjectReference Include="..\HackathonProblem.CsvEmployeeProvider\HackathonProblem.CsvEmployeeProvider.csproj" />
+        
+      <Content Include="appsettings.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+
+      <Content Include="..\assets\**">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
 </Project>

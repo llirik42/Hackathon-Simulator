@@ -1,12 +1,14 @@
+using HackathonProblem.Common.domain.contracts;
 using Microsoft.Extensions.Hosting;
 
 namespace HackathonProblem.Developer;
 
-public class Worker : BackgroundService
+public class Worker(IEmployeeProvider employeeProvider) : BackgroundService
 {
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        Console.WriteLine("123");
+        var juniors = employeeProvider.Provide("Juniors5.csv");
+        var teamLeads = employeeProvider.Provide("Teamleads5.csv");
         
         return Task.CompletedTask;
     }
