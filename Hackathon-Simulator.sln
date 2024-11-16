@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.Contracts", "HackathonProblem.Contracts\HackathonProblem.Contracts.csproj", "{19A726DB-7E9C-492E-A177-3F228EF81D80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.Tests", "HackathonProblem.Tests\HackathonProblem.Tests.csproj", "{69781170-FA03-4F8E-829F-3F17A30145BD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.CsvEmployeeProvider", "HackathonProblem.CsvEmployeeProvider\HackathonProblem.CsvEmployeeProvider.csproj", "{1CBA5275-7FC3-4CAE-AC3A-0A4546C3886B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{19A726DB-7E9C-492E-A177-3F228EF81D80} = {19A726DB-7E9C-492E-A177-3F228EF81D80}
@@ -29,10 +27,6 @@ Global
 		{19A726DB-7E9C-492E-A177-3F228EF81D80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19A726DB-7E9C-492E-A177-3F228EF81D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19A726DB-7E9C-492E-A177-3F228EF81D80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69781170-FA03-4F8E-829F-3F17A30145BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69781170-FA03-4F8E-829F-3F17A30145BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69781170-FA03-4F8E-829F-3F17A30145BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69781170-FA03-4F8E-829F-3F17A30145BD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1CBA5275-7FC3-4CAE-AC3A-0A4546C3886B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1CBA5275-7FC3-4CAE-AC3A-0A4546C3886B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CBA5275-7FC3-4CAE-AC3A-0A4546C3886B}.Release|Any CPU.ActiveCfg = Release|Any CPU
