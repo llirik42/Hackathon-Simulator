@@ -6,6 +6,4 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5fd756b6_002Df86b_002D4839_002Db510_002D6d65ef6671d7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="WishlistProviderTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Project Location="/home/llirik42/RiderProjects/Hackathon-Simulator/HackathonProblem.Tests" Presentation="&amp;lt;HackathonProblem.Tests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d66e8d6c_002De850_002D4507_002Db9a5_002D24705c8b8667/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;HackathonProblem.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/home/llirik42/RiderProjects/Hackathon-Simulator/HackathonProblem.Tests" Presentation="&amp;lt;HackathonProblem.Tests&amp;gt;" /&gt;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+	</wpf:ResourceDictionary>
