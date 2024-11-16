@@ -1,17 +1,18 @@
 using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.domain.entities;
+using HackathonProblem.Common.tests;
 using Xunit;
 
 namespace HackathonProblem.IntegrationTests;
 
-public class Tests
+public class IntegrationTests : IntegrationTestsFixture
 {
     [Fact]
     public void TestSomePreferences()
     {
         const int count = 4;
-        var teamLeads = GetSimpleEmployees(count);
-        var juniors = GetSimpleEmployees(count);
+        var teamLeads = TestUtils.GetSimpleEmployees(count);
+        var juniors = TestUtils.GetSimpleEmployees(count);
 
         List<Wishlist> teamLeadsWishlists =
         [
@@ -31,7 +32,7 @@ public class Tests
 
         List<Team> expectedTeams =
         [
-            new(teamLeads[0], juniors[0]),
+            new(teamLeads[1], juniors[0]),
             new(teamLeads[3], juniors[1]),
             new(teamLeads[0], juniors[2]),
             new(teamLeads[2], juniors[3])

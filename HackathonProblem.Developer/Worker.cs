@@ -6,6 +6,8 @@ public class Worker : BackgroundService
 {
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("123");
+        
+        return Task.CompletedTask;
     }
 }

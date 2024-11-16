@@ -26,8 +26,8 @@ public class HrManagerTests : HrManagerTestsFixture
         var teamLeadsWishlists = wishlistProvider.ProvideTeamLeadsWishlists(juniors, teamLeads);
         var juniorsWishlists = wishlistProvider.ProvideJuniorsWishlists(juniors, teamLeads);
 
-        var mockedCalculator = new Mock<IHrDirector>();
-        var hrManager = new domain.HrManager(mockedCalculator.Object);
+        var mockedHrDirector = new Mock<IHrDirector>();
+        var hrManager = new domain.HrManager(mockedHrDirector.Object);
         var teams = hrManager.BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
 
         Assert.Equal(count, teams.Count());

@@ -1,8 +1,7 @@
-using HackathonProblem.Common.domain;
 using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.domain.entities;
 
-namespace HackathonProblem.HrDirector.domain.impl;
+namespace HackathonProblem.HrDirector.domain;
 
 public class HrDirector : IHrDirector
 {

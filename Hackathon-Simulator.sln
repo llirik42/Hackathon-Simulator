@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.CsvEmploye
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.RandomWishlistsProvider", "HackathonProblem.RandomWishlistsProvider\HackathonProblem.RandomWishlistsProvider.csproj", "{A317DE46-4F4D-4657-AB27-16D30C763D58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.IntegrationTests", "HackathonProblem.IntegrationTests\HackathonProblem.IntegrationTests.csproj", "{48DE1320-3D72-45AE-9272-3F575BF75346}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackathonProblem.IntegrationTests", "HackathonProblem.IntegrationTests\HackathonProblem.IntegrationTests.csproj", "{DCA54F7A-305D-4359-81ED-9085D5408C91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,9 +44,9 @@ Global
 		{A317DE46-4F4D-4657-AB27-16D30C763D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A317DE46-4F4D-4657-AB27-16D30C763D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A317DE46-4F4D-4657-AB27-16D30C763D58}.Release|Any CPU.Build.0 = Release|Any CPU
-		{48DE1320-3D72-45AE-9272-3F575BF75346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48DE1320-3D72-45AE-9272-3F575BF75346}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48DE1320-3D72-45AE-9272-3F575BF75346}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48DE1320-3D72-45AE-9272-3F575BF75346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCA54F7A-305D-4359-81ED-9085D5408C91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCA54F7A-305D-4359-81ED-9085D5408C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCA54F7A-305D-4359-81ED-9085D5408C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCA54F7A-305D-4359-81ED-9085D5408C91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
