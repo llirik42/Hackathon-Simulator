@@ -1,8 +1,8 @@
-using Hackathon_Simulator.dto;
+﻿using HackathonProblem.Contracts;
 
-namespace Hackathon_Simulator.services.impl;
+namespace HackathonProblem.HrManager;
 
-public class WikipediaStrategy(IHarmonizationCalculator harmonizationCalculator) : ITeamBuildingStrategy
+public class HrManager(IHarmonizationCalculator harmonizationCalculator) : ITeamBuildingStrategy
 {
     public IEnumerable<Team> BuildTeams(IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors,
         IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists)
@@ -42,8 +42,8 @@ public class WikipediaStrategy(IHarmonizationCalculator harmonizationCalculator)
             result2.Add(new Team(teamLead, junior));
         }
 
-        var harmonization1 = harmonizationCalculator.Calculate(result1, teamLeadsWishlistsList, juniorsWishlistsList);
-        var harmonization2 = harmonizationCalculator.Calculate(result2, teamLeadsWishlistsList, juniorsWishlistsList);
+        var harmonization1 = harmonizationCalculator.CalculateTeamsHarmonization(result1, teamLeadsWishlistsList, juniorsWishlistsList);
+        var harmonization2 = harmonizationCalculator.CalculateTeamsHarmonization(result2, teamLeadsWishlistsList, juniorsWishlistsList);
 
         return harmonization1 > harmonization2 ? result1 : result2;
     }

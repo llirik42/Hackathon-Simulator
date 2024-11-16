@@ -1,6 +1,4 @@
-using Hackathon_Simulator.dto;
-
-namespace Hackathon_Simulator.services;
+namespace HackathonProblem.Contracts;
 
 public interface ITeamBuildingStrategy
 {

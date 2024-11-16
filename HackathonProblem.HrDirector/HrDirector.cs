@@ -1,18 +1,30 @@
-using Hackathon_Simulator.dto;
+﻿using HackathonProblem.Contracts;
 
-namespace Hackathon_Simulator.services.impl;
+namespace HackathonProblem.HrDirector;
 
-public class HarmonizationCalculatorImpl : IHarmonizationCalculator
+public class HrDirector : IHarmonizationCalculator
 {
-    public double Calculate(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
+    public double CalculateValue(double[] numbers)
+    {
+        double result = 0;
+
+        foreach (var n in numbers)
+        {
+            result += 1 / n;
+        }
+
+        return numbers.Length / result;
+    }
+    
+    public double CalculateTeamsHarmonization(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
         IEnumerable<Wishlist> juniorsWishlists)
     {
         var teamsList = teams.ToList();
         var juniorsWishlistsList = juniorsWishlists.ToList();
         var teamLeadsWishlistsList = teamLeadsWishlists.ToList();
 
-        double result = 0;
-
+        var harmonizationValues = new List<double>();
+        
         foreach (var t in teamsList)
         {
             var juniorId = t.Junior.Id;
@@ -23,13 +35,14 @@ public class HarmonizationCalculatorImpl : IHarmonizationCalculator
 
             var juniorHarmonization = CalculateEmployeeHarmonization(juniorWishlist.DesiredEmployees, teamLeadId);
             var teamLeadHarmonization = CalculateEmployeeHarmonization(teamLeadWishlist.DesiredEmployees, juniorId);
-
-            result += 1.0 / juniorHarmonization + 1.0 / teamLeadHarmonization;
+            
+            harmonizationValues.Add(juniorHarmonization);
+            harmonizationValues.Add(teamLeadHarmonization);
         }
 
-        return 2 * teamsList.Count / result;
+        return CalculateValue(harmonizationValues.ToArray());
     }
-
+    
     public double CalculateEmployeeHarmonization(int[] desiredEmployees, int desiredEmployeeId)
     {
         return desiredEmployees.Length - Array.IndexOf(desiredEmployees, desiredEmployeeId);

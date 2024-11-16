@@ -1,30 +1,18 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Hackathon_Simulator.dto;
+using HackathonProblem.Contracts;
 
-namespace Hackathon_Simulator.services.impl;
+namespace HackathonProblem.CsvEmployeeProvider;
 
-public class CsvEmployeeProvider : IEmployeeProvider
+public class CsvEmployeeProvider(string delimiter, Encoding encoding) : IEmployeeProvider
 {
     private readonly CsvConfiguration _configuration = new(CultureInfo.InvariantCulture)
     {
-        Delimiter = ",",
-        Encoding = Encoding.UTF8
+        Delimiter = delimiter,
+        Encoding = encoding
     };
-
-    public string Delimiter
-    {
-        get => _configuration.Delimiter;
-        set => _configuration.Delimiter = value;
-    }
-
-    public Encoding Encoding
-    {
-        get => _configuration.Encoding;
-        set => _configuration.Encoding = value;
-    }
 
     public List<Employee> Provide(string filePath)
     {

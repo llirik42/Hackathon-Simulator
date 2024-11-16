@@ -1,3 +1,3 @@
-namespace Hackathon_Simulator.dto;
+﻿namespace HackathonProblem.Contracts;
 
 public record Employee(int Id, string Name);
