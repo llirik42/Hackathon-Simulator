@@ -1,4 +1,4 @@
-namespace HackathonProblem.CsvEmployeeProvider;
+﻿namespace HackathonProblem.CsvEmployeeProvider;
 
 public class CsvEmployeeProviderException(string message, Exception innerException)
     : Exception(message, innerException);

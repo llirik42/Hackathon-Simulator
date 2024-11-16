@@ -1,9 +1,9 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
-using HackathonProblem.Contracts.dto;
-using HackathonProblem.Contracts.services;
+using HackathonProblem.Common.domain.contracts;
+using HackathonProblem.Common.domain.entities;
 
 namespace HackathonProblem.CsvEmployeeProvider;
 

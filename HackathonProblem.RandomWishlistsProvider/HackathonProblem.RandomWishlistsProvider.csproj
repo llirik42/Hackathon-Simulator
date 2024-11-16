@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HackathonProblem.Contracts\HackathonProblem.Contracts.csproj" />
+      <ProjectReference Include="..\HackathonProblem.Common\HackathonProblem.Common.csproj" />
     </ItemGroup>
 
 </Project>
