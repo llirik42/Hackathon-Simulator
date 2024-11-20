@@ -2,7 +2,7 @@ namespace HackathonProblem.CsvEmployeeProvider;
 
 public class CsvSettings
 {
-    public string Delimiter { get; set; }
+    public required string Delimiter { get; init; }
 
-    public string Encoding { get; set; }
+    public required string Encoding { get; init; }
 }
