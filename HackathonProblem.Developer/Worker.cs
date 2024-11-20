@@ -25,7 +25,7 @@ public class Worker(
         var juniors = employeeProvider.Provide(config.JuniorsUrl);
         var teamLeads = employeeProvider.Provide(config.TeamLeadsUrl);
 
-        if (config.DeveloperType == DeveloperType.JUNIOR)
+        if (config.DeveloperType == DeveloperType.Junior)
         {
             var teamLeadsIds = teamLeads.Select(t => t.Id).ToList();
             return wishlistProvider.ProvideJuniorWishlist(myId, teamLeadsIds);

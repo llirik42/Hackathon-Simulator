@@ -1,7 +1,7 @@
-namespace HackathonProblem.Developer;
+namespace HackathonProblem.Developer.models;
 
 public enum DeveloperType
 {
-    JUNIOR,
-    TEAM_LEAD
+    Junior,
+    TeamLead
 }

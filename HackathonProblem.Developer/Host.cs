@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-const DeveloperType type = DeveloperType.JUNIOR;
+const DeveloperType type = DeveloperType.Junior;
 const int id = 5;
 const string hrManagerConnectionString = "http://localhost:5001";
 const string juniorsUrl = "Juniors5.csv";
