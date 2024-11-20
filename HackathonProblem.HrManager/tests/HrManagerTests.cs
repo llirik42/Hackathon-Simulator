@@ -22,9 +22,12 @@ public class HrManagerTests : HrManagerTestsFixture
         var teamLeads = TestUtils.GetSimpleEmployees(count);
         var juniors = TestUtils.GetSimpleEmployees(count);
 
+        var teamLeadsIds = teamLeads.Select(t => t.Id).ToList();
+        var juniorsIds = teamLeads.Select(t => t.Id).ToList();
+        
         var wishlistProvider = GetService<IWishlistProvider>();
-        var teamLeadsWishlists = wishlistProvider.ProvideTeamLeadsWishlists(juniors, teamLeads);
-        var juniorsWishlists = wishlistProvider.ProvideJuniorsWishlists(juniors, teamLeads);
+        var teamLeadsWishlists = wishlistProvider.ProvideTeamLeadsWishlists(juniorsIds, teamLeadsIds);
+        var juniorsWishlists = wishlistProvider.ProvideJuniorsWishlists(juniorsIds, teamLeadsIds);
 
         var mockedHrDirector = new Mock<IHrDirector>();
         var hrManager = new domain.HrManager(mockedHrDirector.Object);

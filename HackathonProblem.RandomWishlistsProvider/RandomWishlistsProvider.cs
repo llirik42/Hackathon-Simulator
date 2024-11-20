@@ -7,17 +7,27 @@ public class RandomWishlistsProvider(int seed = 0) : IWishlistProvider
 {
     private readonly Random _random = new(seed);
 
-    public List<Wishlist> ProvideJuniorsWishlists(List<Employee> juniors, List<Employee> teamLeads)
+    public Wishlist ProvideJuniorWishlist(int juniorId, List<int> teamLeadsIds)
     {
-        return ProvideWishlists(juniors, teamLeads);
+        return ProvideWishlists([juniorId], teamLeadsIds)[0];
     }
 
-    public List<Wishlist> ProvideTeamLeadsWishlists(List<Employee> juniors, List<Employee> teamLeads)
+    public Wishlist ProviderTeamLeadWishlist(int teamLeadId, List<int> juniorsIds)
     {
-        return ProvideWishlists(teamLeads, juniors);
+        return ProvideWishlists([teamLeadId], juniorsIds)[0];
     }
 
-    private List<Wishlist> ProvideWishlists(List<Employee> l1, List<Employee> l2)
+    public List<Wishlist> ProvideJuniorsWishlists(List<int> juniorsIds, List<int> teamLeadsIds)
+    {
+        return ProvideWishlists(juniorsIds, teamLeadsIds);
+    }
+
+    public List<Wishlist> ProvideTeamLeadsWishlists(List<int> juniorsIds, List<int> teamLeadsIds)
+    {
+        return ProvideWishlists(teamLeadsIds, juniorsIds);
+    }
+
+    private List<Wishlist> ProvideWishlists(List<int> l1, List<int> l2)
     {
         /*
          * For each element from l1, randomly assigns priority for every element from l2
@@ -36,11 +46,11 @@ public class RandomWishlistsProvider(int seed = 0) : IWishlistProvider
             {
                 var randomIndex = _random.Next(0, l2Indexes.Count);
                 var tmp = l2Indexes.ElementAt(randomIndex);
-                currentElementPreferences[i] = l2[tmp].Id;
+                currentElementPreferences[i] = l2[tmp];
                 l2Indexes.RemoveAt(randomIndex);
             }
 
-            result.Add(new Wishlist(element.Id, currentElementPreferences));
+            result.Add(new Wishlist(element, currentElementPreferences));
         }
 
         return result;

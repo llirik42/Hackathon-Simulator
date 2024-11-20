@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HackathonProblem.HrManager.models;
 
-public record JuniorWishlistRequest
+public class JuniorWishlistRequest
 {
     [Required]
     [Range(1, int.MaxValue)]

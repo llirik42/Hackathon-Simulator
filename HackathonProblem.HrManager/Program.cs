@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using HackathonProblem.Common.domain.entities;
+using HackathonProblem.Common.models;
 using HackathonProblem.HrManager.models;
 
 var count = 5;
@@ -21,13 +22,25 @@ var teamLeadWishlists = new ConcurrentQueue<Wishlist>();
 
 app.MapPost("/juniors", (JuniorWishlistRequest request) =>
 {
-    juniorWishlists.Enqueue(new Wishlist(request.JuniorId, request.DesiredTeamLeads));
-    
+    Console.WriteLine(request);
+    return new DetailResponse("Wishlist accepted");
+
+    //
+    // juniorWishlists.Enqueue(new Wishlist(request.JuniorId, request.DesiredTeamLeads));
+    //
+    // if (juniorWishlists.Count >= count && teamLeadWishlists.Count >= count)
+    // {
+    //     
+    // }
 });
 
 app.MapPost("/team-leads", (TeamLeadWithlistRequest request) =>
 {
-    teamLeadWishlists.Enqueue(new Wishlist(request.TeamLeadId, request.DesiredJuniors));
+    Console.WriteLine(request);
+    return new DetailResponse("Wishlist accepted");
+
+    
+    //teamLeadWishlists.Enqueue(new Wishlist(request.TeamLeadId, request.DesiredJuniors));
 });
 
 
