@@ -8,10 +8,20 @@ namespace HackathonProblem.Developer.services;
 
 public class HrManagerService(IHttpClientFactory factory, HrManagerConfig config) : IHrManagerService
 {
-    public async Task<DetailResponse> PostWishlist(Wishlist wishlist)
+    public async Task<DetailResponse> PostJuniorWishlist(Wishlist wishlist)
+    {
+        return await PostWishlist(wishlist, "/juniors");
+    }
+
+    public async Task<DetailResponse> PostTeamLeadWishlist(Wishlist wishlist)
+    {
+        return await PostWishlist(wishlist, "/teamleads");
+    }
+
+    private async Task<DetailResponse> PostWishlist(Wishlist wishlist, string path)
     {
         var httpClient = factory.CreateClient();
-        var requestUri = $"{config.ConnectionString}/juniors";
+        var requestUri = $"{config.ConnectionString}{path}";
 
         using var response = await httpClient.PostAsJsonAsync(requestUri, wishlist);
 

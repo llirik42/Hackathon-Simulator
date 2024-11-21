@@ -1,5 +1,6 @@
 using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.domain.entities;
+using HackathonProblem.Common.models;
 using HackathonProblem.Developer.models;
 using HackathonProblem.Developer.services;
 using Microsoft.Extensions.Hosting;
@@ -15,7 +16,7 @@ public class Worker(
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         var wishlist = GetWishlist();
-        var response = await hrManagerService.PostWishlist(wishlist);
+        var response = await SendRequest(wishlist);
         Console.WriteLine(response.Detail);
     }
 
@@ -33,5 +34,12 @@ public class Worker(
 
         var juniorsIds = juniors.Select(t => t.Id).ToList();
         return wishlistProvider.ProviderTeamLeadWishlist(myId, juniorsIds);
+    }
+
+    private async Task<DetailResponse> SendRequest(Wishlist wishlist)
+    {
+        if (config.DeveloperType == DeveloperType.Junior) return await hrManagerService.PostJuniorWishlist(wishlist);
+
+        return await hrManagerService.PostTeamLeadWishlist(wishlist);
     }
 }

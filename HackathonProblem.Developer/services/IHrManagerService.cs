@@ -5,5 +5,7 @@ namespace HackathonProblem.Developer.services;
 
 public interface IHrManagerService
 {
-    Task<DetailResponse> PostWishlist(Wishlist wishlist);
+    Task<DetailResponse> PostJuniorWishlist(Wishlist wishlist);
+
+    Task<DetailResponse> PostTeamLeadWishlist(Wishlist wishlist);
 }
