@@ -20,6 +20,10 @@ public class HrManagerService(IHttpClientFactory factory, HrManagerConfig config
     {
         var httpClient = factory.CreateClient();
         var requestUri = $"{config.ConnectionString}{path}";
-        return await NetworkUtils.PostForDetailResponse(httpClient, requestUri, wishlist);
+
+        var request = new WishlistRequest
+            { EmployeeId = wishlist.EmployeeId, DesiredEmployees = wishlist.DesiredEmployees };
+
+        return await NetworkUtils.PostForDetailResponse(httpClient, requestUri, request);
     }
 }
