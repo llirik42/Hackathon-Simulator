@@ -1,4 +1,5 @@
 using HackathonProblem.Common.domain.contracts;
+using HackathonProblem.Common.mapping;
 using HackathonProblem.CsvEmployeeProvider;
 using HackathonProblem.HrDirector.db;
 using HackathonProblem.HrDirector.db.contexts;
@@ -6,7 +7,6 @@ using HackathonProblem.HrDirector.domain;
 using HackathonProblem.HrDirector.models;
 using HackathonProblem.HrDirector.services.hackathonOrganizer;
 using HackathonProblem.HrDirector.services.storageService;
-using HackathonProblem.HrDirector.services.teamMapper;
 using Microsoft.Extensions.Options;
 
 const string juniorsUrl = "Juniors5.csv";

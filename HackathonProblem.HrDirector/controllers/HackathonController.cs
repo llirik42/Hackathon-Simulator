@@ -1,10 +1,10 @@
 using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.domain.entities;
+using HackathonProblem.Common.mapping;
 using HackathonProblem.Common.models;
 using HackathonProblem.HrDirector.models;
 using HackathonProblem.HrDirector.services.hackathonOrganizer;
 using HackathonProblem.HrDirector.services.storageService;
-using HackathonProblem.HrDirector.services.teamMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HackathonProblem.HrDirector.controllers;
