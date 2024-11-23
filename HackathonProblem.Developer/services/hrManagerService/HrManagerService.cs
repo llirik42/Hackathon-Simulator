@@ -1,10 +1,8 @@
-using System.Net.Http.Json;
+using HackathonProblem.Common;
 using HackathonProblem.Common.domain.entities;
-using HackathonProblem.Common.exceptions;
 using HackathonProblem.Common.models;
-using Newtonsoft.Json;
 
-namespace HackathonProblem.Developer.services;
+namespace HackathonProblem.Developer.services.hrManagerService;
 
 public class HrManagerService(IHttpClientFactory factory, HrManagerConfig config) : IHrManagerService
 {
@@ -22,16 +20,6 @@ public class HrManagerService(IHttpClientFactory factory, HrManagerConfig config
     {
         var httpClient = factory.CreateClient();
         var requestUri = $"{config.ConnectionString}{path}";
-
-        using var response = await httpClient.PostAsJsonAsync(requestUri, wishlist);
-
-        if (!response.IsSuccessStatusCode) throw new UnexpectedResponseStatusException(response.StatusCode.ToString());
-
-        var responseString = await response.Content.ReadAsStringAsync();
-        var detailResponse = JsonConvert.DeserializeObject<DetailResponse>(responseString);
-
-        if (detailResponse is null) throw new UnexpectedResponseException(responseString);
-
-        return detailResponse;
+        return await NetworkUtils.PostForDetailResponse(httpClient, requestUri, wishlist);
     }
 }

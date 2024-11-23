@@ -2,7 +2,7 @@
 using HackathonProblem.CsvEmployeeProvider;
 using HackathonProblem.Developer;
 using HackathonProblem.Developer.models;
-using HackathonProblem.Developer.services;
+using HackathonProblem.Developer.services.hrManagerService;
 using HackathonProblem.RandomWishlistsProvider;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

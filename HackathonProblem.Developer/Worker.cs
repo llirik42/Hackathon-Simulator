@@ -2,7 +2,7 @@ using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.domain.entities;
 using HackathonProblem.Common.models;
 using HackathonProblem.Developer.models;
-using HackathonProblem.Developer.services;
+using HackathonProblem.Developer.services.hrManagerService;
 using Microsoft.Extensions.Hosting;
 
 namespace HackathonProblem.Developer;
