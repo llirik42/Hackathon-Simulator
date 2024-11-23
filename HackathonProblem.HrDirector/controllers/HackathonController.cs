@@ -22,16 +22,16 @@ public class HackathonController(
     {
         var juniors = employeeProvider.Provide(config.JuniorsUrl);
         var teamLeads = employeeProvider.Provide(config.TeamLeadsUrl);
-        var teams = request.teams.Select(t => teamMapper.ShortTeamToTeam(t, juniors, teamLeads)).ToList();
-        var hackathon = hackathonOrganizer.Organize(request.teamLeadsWishlists, request.juniorsWishlists, teams);
+        var teams = request.Teams.Select(t => teamMapper.ShortTeamToTeam(t, juniors, teamLeads)).ToList();
+        var hackathon = hackathonOrganizer.Organize(request.TeamLeadsWishlists, request.JuniorsWishlists, teams);
 
         AddJuniorsToDatabase(juniors);
         AddTeamLeadsToDatabase(teamLeads);
         var hackathonId = storageService.CreateHackathon(hackathon.Harmonization);
 
         storageService.AddTeams(hackathonId, hackathon.Teams);
-        storageService.AddJuniorWishlists(hackathonId, request.juniorsWishlists);
-        storageService.AddTeamLeadWishlists(hackathonId, request.teamLeadsWishlists);
+        storageService.AddJuniorWishlists(hackathonId, request.JuniorsWishlists);
+        storageService.AddTeamLeadWishlists(hackathonId, request.TeamLeadsWishlists);
 
         return new DetailResponse("Teams and wishlists accepted");
     }

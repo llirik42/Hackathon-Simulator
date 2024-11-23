@@ -1,4 +1,3 @@
-using HackathonProblem.Common.domain;
 using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.domain.entities;
 

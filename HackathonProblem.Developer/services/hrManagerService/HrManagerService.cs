@@ -24,6 +24,6 @@ public class HrManagerService(IHttpClientFactory factory, HrManagerConfig config
         var request = new WishlistRequest
             { EmployeeId = wishlist.EmployeeId, DesiredEmployees = wishlist.DesiredEmployees };
 
-        return await NetworkUtils.PostForDetailResponse(httpClient, requestUri, request);
+        return await NetworkUtils.PostForEntity<WishlistRequest, DetailResponse>(httpClient, requestUri, request);
     }
 }
