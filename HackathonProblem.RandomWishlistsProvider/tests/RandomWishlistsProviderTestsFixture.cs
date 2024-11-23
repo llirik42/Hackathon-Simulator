@@ -10,9 +10,9 @@ public class RandomWishlistsProviderTestsFixture
     protected RandomWishlistsProviderTestsFixture()
     {
         var serviceCollection = new ServiceCollection();
-        
+
         serviceCollection.AddTransient<IWishlistProvider, RandomWishlistsProvider>();
-        
+
         var serviceProvider = serviceCollection.BuildServiceProvider();
         _scope = serviceProvider.CreateScope();
     }

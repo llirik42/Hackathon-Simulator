@@ -24,7 +24,7 @@ public class HrManagerTests : HrManagerTestsFixture
 
         var teamLeadsIds = teamLeads.Select(t => t.Id).ToList();
         var juniorsIds = teamLeads.Select(t => t.Id).ToList();
-        
+
         var wishlistProvider = GetService<IWishlistProvider>();
         var teamLeadsWishlists = wishlistProvider.ProvideTeamLeadsWishlists(juniorsIds, teamLeadsIds);
         var juniorsWishlists = wishlistProvider.ProvideJuniorsWishlists(juniorsIds, teamLeadsIds);
@@ -66,7 +66,7 @@ public class HrManagerTests : HrManagerTestsFixture
         for (var i = 0; i < count; i++) expectedTeams.Add(new Team(teamLeads[i], juniors[i]));
 
         var hrManager = GetService<IHrManager>();
-        
+
         var actualTeams = hrManager.BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
 
         Assert.Equal(expectedTeams, actualTeams);

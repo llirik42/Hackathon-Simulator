@@ -45,7 +45,7 @@ public class IntegrationTests : IntegrationTestsFixture
 
         Assert.Equal(expectedTeams, actualTeams);
     }
-    
+
     [Theory]
     [InlineData(1)]
     [InlineData(5)]
@@ -61,7 +61,7 @@ public class IntegrationTests : IntegrationTestsFixture
         var teamLeads = TestUtils.GetSimpleEmployees(count);
         var juniorsIds = juniors.Select(j => j.Id).ToList();
         var teamLeadsIds = teamLeads.Select(team => team.Id).ToList();
-        
+
         var wishlistProvider = GetService<IWishlistProvider>();
         var teamLeadsWishlists = wishlistProvider.ProvideTeamLeadsWishlists(juniorsIds, teamLeadsIds);
         var juniorsWishlists = wishlistProvider.ProvideJuniorsWishlists(juniorsIds, teamLeadsIds);

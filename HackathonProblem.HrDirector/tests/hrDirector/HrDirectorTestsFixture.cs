@@ -9,7 +9,7 @@ public class HrDirectorTestsFixture
     protected HrDirectorTestsFixture()
     {
         var serviceCollection = new ServiceCollection();
-        
+
         serviceCollection.AddTransient<IHrDirector, domain.HrDirector>();
 
         var serviceProvider = serviceCollection.BuildServiceProvider();

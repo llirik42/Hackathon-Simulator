@@ -21,7 +21,8 @@ builder.Services.AddControllers();
 builder.Services.Configure<CsvSettings>(builder.Configuration.GetRequiredSection("Csv"));
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<CsvSettings>>().Value);
 
-builder.Services.AddSingleton(_ => new HrManagerConfig(juniorsUrl, teamLadsUrl, employeeCount, hrDirectorConnectionString));
+builder.Services.AddSingleton(_ =>
+    new HrManagerConfig(juniorsUrl, teamLadsUrl, employeeCount, hrDirectorConnectionString));
 
 builder.Services.AddSingleton<IWishlistService, ConcurrentWishlistService>();
 builder.Services.AddSingleton<IHackathonService, HackathonService>();
@@ -29,7 +30,8 @@ builder.Services.AddSingleton<IHrDirector, HrDirectorService>();
 builder.Services.AddSingleton<IHrManager, HrManager>();
 builder.Services.AddSingleton(_ => new TeamMapper());
 builder.Services.AddSingleton<IEmployeeProvider, CsvEmployeeProvider>();
-;builder.Services.AddHttpClient();
+
+builder.Services.AddHttpClient();
 
 
 var app = builder.Build();

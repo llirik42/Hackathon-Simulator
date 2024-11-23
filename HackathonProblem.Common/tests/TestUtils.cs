@@ -12,7 +12,7 @@ public static class TestUtils
 
         for (var i = list.Count - shift; i < list.Count; i++) list[i] = copy[i + shift - list.Count];
     }
-    
+
     public static List<Employee> GetSimpleEmployees(int count)
     {
         var employees = new List<Employee>();
@@ -25,7 +25,7 @@ public static class TestUtils
 
         return employees;
     }
-    
+
     private static Employee GetSimpleEmployee(int id)
     {
         return new Employee(id, $"{id}");

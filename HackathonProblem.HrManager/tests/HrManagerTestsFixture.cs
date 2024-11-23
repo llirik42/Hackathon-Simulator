@@ -10,7 +10,7 @@ public class HrManagerTestsFixture
     protected HrManagerTestsFixture()
     {
         var serviceCollection = new ServiceCollection();
-        
+
         serviceCollection.AddTransient<IWishlistProvider, RandomWishlistsProvider.RandomWishlistsProvider>();
         serviceCollection.AddTransient<IHrDirector>(_ => new Mock<IHrDirector>().Object);
         serviceCollection.AddTransient<IHrManager, domain.HrManager>();

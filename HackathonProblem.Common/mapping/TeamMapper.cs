@@ -14,7 +14,7 @@ public class TeamMapper
 
         return new Team(teamLead, junior);
     }
-    
+
     public ShortTeam TeamToShortTeam(Team team)
     {
         return new ShortTeam { TeamLeadId = team.TeamLead.Id, JuniorId = team.Junior.Id };

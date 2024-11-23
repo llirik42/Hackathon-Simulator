@@ -16,7 +16,7 @@ public class HrDirectorService(
         var requestUri = $"{config.HrDirectorConnectionString}/mean";
         var request = new MeanHarmonicRequest { Numbers = numbers };
         return NetworkUtils.PostForEntity<MeanHarmonicRequest, DoubleResponse>(httpClient, requestUri, request).Result
-            .value;
+            .Value;
     }
 
     public double CalculateTeamsHarmonization(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
@@ -30,7 +30,7 @@ public class HrDirectorService(
             TeamLeadsWishlists = teamLeadsWishlists.ToList()
         };
         return NetworkUtils.PostForEntity<TeamsHarmonizationRequest, DoubleResponse>(httpClient, requestUri, request)
-            .Result.value;
+            .Result.Value;
     }
 
     public double CalculateEmployeeHarmonization(int[] desiredEmployees, int desiredEmployeeId)
@@ -40,6 +40,6 @@ public class HrDirectorService(
         var request = new EmployeeHarmonizationRequest
             { DesiredEmployeeId = desiredEmployeeId, DesiredEmployees = desiredEmployees };
         return NetworkUtils.PostForEntity<EmployeeHarmonizationRequest, DoubleResponse>(httpClient, requestUri, request)
-            .Result.value;
+            .Result.Value;
     }
 }

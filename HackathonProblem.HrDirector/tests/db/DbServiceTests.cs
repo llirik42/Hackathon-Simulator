@@ -27,7 +27,7 @@ public class DbServiceTest : DbServiceTestsFixture
         Assert.Empty(hackathon.Teams);
         Assert.Equal(harmonization, Math.Round(hackathon.Harmonization));
     }
-    
+
     [Fact]
     public void TestAverageHarmonization()
     {
