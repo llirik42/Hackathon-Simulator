@@ -1,6 +1,6 @@
 using HackathonProblem.Common.domain.entities;
 
-namespace HackathonProblem.HrDirector.services;
+namespace HackathonProblem.HrDirector.services.storageService;
 
 public interface IStorageService
 {

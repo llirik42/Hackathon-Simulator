@@ -1,7 +1,7 @@
 using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.domain.entities;
 
-namespace HackathonProblem.HrDirector.services.impl;
+namespace HackathonProblem.HrDirector.services.hackathonOrganizer;
 
 public class HackathonOrganizer(IHrDirector hrDirector) : IHackathonOrganizer
 {

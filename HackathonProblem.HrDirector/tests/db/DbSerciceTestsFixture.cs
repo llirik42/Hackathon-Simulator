@@ -1,6 +1,6 @@
 using HackathonProblem.HrDirector.db;
 using HackathonProblem.HrDirector.db.contexts;
-using HackathonProblem.HrDirector.services;
+using HackathonProblem.HrDirector.services.storageService;
 using Microsoft.EntityFrameworkCore;
 
 namespace HackathonProblem.HrDirector.tests.db;

@@ -1,8 +1,7 @@
 using HackathonProblem.Common.domain.entities;
 using HackathonProblem.HrDirector.models;
-using HackathonProblem.HrDirector.services.exceptions;
 
-namespace HackathonProblem.HrDirector.services;
+namespace HackathonProblem.HrDirector.services.teamMapper;
 
 public class TeamMapper
 {

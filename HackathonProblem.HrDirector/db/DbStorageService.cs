@@ -2,8 +2,7 @@ using System.Data;
 using HackathonProblem.Common.domain.entities;
 using HackathonProblem.HrDirector.db.contexts;
 using HackathonProblem.HrDirector.db.entities;
-using HackathonProblem.HrDirector.services;
-using HackathonProblem.HrDirector.services.exceptions;
+using HackathonProblem.HrDirector.services.storageService;
 using Microsoft.EntityFrameworkCore;
 
 namespace HackathonProblem.HrDirector.db;
