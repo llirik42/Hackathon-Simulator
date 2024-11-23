@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using HackathonProblem.Common.domain.entities;
 
-namespace HackathonProblem.HrDirector.models;
+namespace HackathonProblem.Common.models;
 
 public class HackathonDataRequest
 {

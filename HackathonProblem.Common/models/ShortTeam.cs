@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace HackathonProblem.HrDirector.models;
+namespace HackathonProblem.Common.models;
 
 public class ShortTeam
 {
