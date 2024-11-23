@@ -1,43 +1,41 @@
+using HackathonProblem.Common.domain.contracts;
+using HackathonProblem.CsvEmployeeProvider;
+using HackathonProblem.HrDirector.db;
+using HackathonProblem.HrDirector.db.contexts;
+using HackathonProblem.HrDirector.domain;
+using HackathonProblem.HrDirector.models;
+using HackathonProblem.HrDirector.services;
+using HackathonProblem.HrDirector.services.impl;
+using Microsoft.Extensions.Options;
+
+const string juniorsUrl = "Juniors5.csv";
+const string teamLadsUrl = "Teamleads5.csv";
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers();
+builder.Services.Configure<DbSettings>(builder.Configuration.GetRequiredSection("Db"));
+builder.Services.Configure<CsvSettings>(builder.Configuration.GetRequiredSection("Csv"));
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<CsvSettings>>().Value);
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<DbSettings>>().Value);
+builder.Services.AddSingleton(_ => new HrDirectorConfig(juniorsUrl, teamLadsUrl));
+builder.Services.AddDbContextFactory<PostgresContext>();
+builder.Services.AddTransient<IStorageService, DbStorageService<PostgresContext>>();
+builder.Services.AddSingleton<IEmployeeProvider, CsvEmployeeProvider>();
+builder.Services.AddSingleton<IHackathonOrganizer, HackathonOrganizer>();
+builder.Services.AddSingleton<IHrDirector, HrDirector>();
+builder.Services.AddSingleton(_ => new TeamMapper());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.MapControllerRoute("default", "{controller=Hackathon}");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast");
-
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

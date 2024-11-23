@@ -2,7 +2,7 @@ using HackathonProblem.Common.domain.entities;
 
 namespace HackathonProblem.HrDirector.services;
 
-public interface IDbService
+public interface IStorageService
 {
     bool CreateJunior(Employee junior);
 

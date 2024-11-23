@@ -1,6 +1,6 @@
 using HackathonProblem.Common.domain.contracts;
 
-namespace HackathonProblem.HrDirector.tests;
+namespace HackathonProblem.HrDirector.tests.hrDirector;
 
 public class HrDirectorTestsFixture
 {

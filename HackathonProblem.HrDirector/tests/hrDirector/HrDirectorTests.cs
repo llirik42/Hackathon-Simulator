@@ -3,7 +3,7 @@ using HackathonProblem.Common.domain.entities;
 using HackathonProblem.Common.tests;
 using Xunit;
 
-namespace HackathonProblem.HrDirector.tests;
+namespace HackathonProblem.HrDirector.tests.hrDirector;
 
 public class HrDirectorTests : HrDirectorTestsFixture
 {
