@@ -11,27 +11,16 @@ using Microsoft.Extensions.Options;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-const DeveloperType type = DeveloperType.Junior;
-const int id = 133;
-const string hrManagerConnectionString = "http://localhost:5000";
-const string juniorsUrl = "Juniors5.csv";
-const string teamLadsUrl = "Teamleads5.csv";
-
-
+builder.Services.Configure<HrManagerConfig>(builder.Configuration.GetRequiredSection("HrManager"));
 builder.Services.Configure<CsvSettings>(builder.Configuration.GetRequiredSection("Csv"));
+builder.Services.Configure<DeveloperConfig>(builder.Configuration.GetRequiredSection("Developer"));
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<HrManagerConfig>>().Value);
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<CsvSettings>>().Value);
-
-builder.Services.AddSingleton(_ =>
-    new DeveloperConfig(id, type, juniorsUrl, teamLadsUrl));
-
-builder.Services.AddSingleton(_ => new HrManagerConfig(hrManagerConnectionString));
-
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<DeveloperConfig>>().Value);
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<IEmployeeProvider, CsvEmployeeProvider>();
 builder.Services.AddSingleton<IWishlistProvider, RandomWishlistsProvider>();
 builder.Services.AddSingleton<IHrManagerService, HrManagerService>();
-
-
 builder.Services.AddHostedService<Worker>();
 
 var host = builder.Build();

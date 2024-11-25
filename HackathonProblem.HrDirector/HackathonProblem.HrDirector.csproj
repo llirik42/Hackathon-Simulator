@@ -30,4 +30,8 @@
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.0.0" />
       <PackageReference Include="xunit" Version="2.9.2" />
     </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Properties\launchSettings.json" />
+    </ItemGroup>
 </Project>

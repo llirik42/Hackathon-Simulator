@@ -1,7 +1,11 @@
 namespace HackathonProblem.Developer.models;
 
-public record DeveloperConfig(
-    int DeveloperId,
-    DeveloperType DeveloperType,
-    string JuniorsUrl,
-    string TeamLeadsUrl);
+public class DeveloperConfig
+{
+    public int Id { get; set; }
+    public DeveloperType Type { get; set; }
+
+    public string JuniorsUrl { get; set; }
+    
+    public string TeamLeadsUrl { get; set; }
+}

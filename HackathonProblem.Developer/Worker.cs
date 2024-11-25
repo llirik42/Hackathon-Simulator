@@ -22,11 +22,11 @@ public class Worker(
 
     private Wishlist GetWishlist()
     {
-        var myId = config.DeveloperId;
+        var myId = config.Id;
         var juniors = employeeProvider.Provide(config.JuniorsUrl);
         var teamLeads = employeeProvider.Provide(config.TeamLeadsUrl);
 
-        if (config.DeveloperType == DeveloperType.Junior)
+        if (config.Type == DeveloperType.Junior)
         {
             var teamLeadsIds = teamLeads.Select(t => t.Id).ToList();
             return wishlistProvider.ProvideJuniorWishlist(myId, teamLeadsIds);
@@ -38,7 +38,7 @@ public class Worker(
 
     private async Task<DetailResponse> SendRequest(Wishlist wishlist)
     {
-        if (config.DeveloperType == DeveloperType.Junior) return await hrManagerService.PostJuniorWishlist(wishlist);
+        if (config.Type == DeveloperType.Junior) return await hrManagerService.PostJuniorWishlist(wishlist);
 
         return await hrManagerService.PostTeamLeadWishlist(wishlist);
     }

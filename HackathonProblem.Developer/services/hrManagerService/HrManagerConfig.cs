@@ -1,3 +1,6 @@
 namespace HackathonProblem.Developer.services.hrManagerService;
 
-public record HrManagerConfig(string ConnectionString);
+public class HrManagerConfig
+{
+    public string ConnectionString { get; set; }
+}
