@@ -3,9 +3,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk AS build
 WORKDIR /build
-COPY HackathonProblem.HrDirector HackathonProblem.HrDirector
-COPY HackathonProblem.Common HackathonProblem.Common
-COPY HackathonProblem.CsvEmployeeProvider HackathonProblem.CsvEmployeeProvider
+COPY . .
 RUN dotnet restore ./HackathonProblem.HrDirector/HackathonProblem.HrDirector.csproj
 RUN dotnet publish ./HackathonProblem.HrDirector/HackathonProblem.HrDirector.csproj -c Release -o result
 
