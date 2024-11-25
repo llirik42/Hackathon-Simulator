@@ -20,12 +20,10 @@ services:
   hr-manager:
     build:
       dockerfile: hrManager.Dockerfile
-    env_file:
-      - .env
+    environment:
+      ASPNETCORE_URLS: http://localhost:5001/
     depends_on:
       - hr-director
-    ports:
-      - "5000:5000"
 
   developer:
     build:

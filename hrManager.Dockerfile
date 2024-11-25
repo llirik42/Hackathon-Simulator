@@ -10,4 +10,4 @@ RUN dotnet publish ./HackathonProblem.HrManager/HackathonProblem.HrManager.cspro
 FROM base AS final
 WORKDIR /app
 COPY --from=build /build/result .
-ENTRYPOINT ["dotnet", "HackathonProblem.HrManager.dll", "--urls=http://0.0.0.0:5000"]
+ENTRYPOINT ["dotnet", "HackathonProblem.HrManager.dll"]

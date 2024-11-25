@@ -10,4 +10,4 @@ RUN dotnet publish ./HackathonProblem.HrDirector/HackathonProblem.HrDirector.csp
 FROM base AS final
 WORKDIR /app
 COPY --from=build /build/result .
-ENTRYPOINT ["dotnet", "HackathonProblem.HrDirector.dll", "--urls=http://0.0.0.0:5001"]
+ENTRYPOINT ["dotnet", "HackathonProblem.HrDirector.dll"]
