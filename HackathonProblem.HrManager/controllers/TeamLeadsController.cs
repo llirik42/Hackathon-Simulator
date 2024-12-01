@@ -23,7 +23,7 @@ public class TeamLeadsController(
                 wishlistService.GetTeamLeadsWishlists());
             Console.WriteLine(response.Detail);
         }
-
+        
         return new DetailResponse($"Wishlist from team-lead - {request.EmployeeId} accepted");
     }
 }

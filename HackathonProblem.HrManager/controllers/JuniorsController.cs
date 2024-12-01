@@ -16,7 +16,7 @@ public class JuniorsController(
     public DetailResponse PostJuniorWishlist([FromBody] WishlistRequest request)
     {
         wishlistService.AddJuniorWishlist(request.ToWishlist());
-
+        
         if (wishlistService.MatchWishlistsCount(config.EmployeeCount))
         {
             var response = hackathonService.BuildTeamsAndPost(wishlistService.GetJuniorsWishlists(),

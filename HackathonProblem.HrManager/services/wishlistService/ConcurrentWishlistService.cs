@@ -1,35 +1,41 @@
 using System.Collections.Concurrent;
 using HackathonProblem.Common.domain.entities;
+using HackathonProblem.Common.models;
 
 namespace HackathonProblem.HrManager.services.wishlistService;
 
 public class ConcurrentWishlistService : IWishlistService
 {
-    private readonly ConcurrentQueue<Wishlist> _juniorsWishlists = new();
-    private readonly ConcurrentQueue<Wishlist> _teamLeadsWishlists = new();
-
+    private record DeveloperWishlist(Wishlist Wishlist, DeveloperType DeveloperType);
+    
+    private readonly ConcurrentQueue<DeveloperWishlist> _wishlists = new();
+    
     public void AddJuniorWishlist(Wishlist wishlist)
     {
-        _juniorsWishlists.Enqueue(wishlist);
+        _wishlists.Enqueue(new DeveloperWishlist(wishlist, DeveloperType.Junior));
     }
 
     public void AddTeamLeadWishlist(Wishlist wishlist)
     {
-        _teamLeadsWishlists.Enqueue(wishlist);
+        _wishlists.Enqueue(new DeveloperWishlist(wishlist, DeveloperType.TeamLead));
     }
 
     public List<Wishlist> GetJuniorsWishlists()
     {
-        return _juniorsWishlists.ToList();
+        var juniorsWishlists = _wishlists.Where(w => w.DeveloperType == DeveloperType.Junior);
+        var wishlists = juniorsWishlists.Select(e => e.Wishlist);
+        return wishlists.ToList();
     }
 
     public List<Wishlist> GetTeamLeadsWishlists()
     {
-        return _teamLeadsWishlists.ToList();
+        var juniorsWishlists = _wishlists.Where(w => w.DeveloperType == DeveloperType.TeamLead);
+        var wishlists = juniorsWishlists.Select(e => e.Wishlist);
+        return wishlists.ToList();
     }
 
     public bool MatchWishlistsCount(int count)
     {
-        return _juniorsWishlists.Count == count && _teamLeadsWishlists.Count == count;
+        return _wishlists.Count == count * 2;
     }
 }

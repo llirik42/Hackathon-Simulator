@@ -1,3 +1,5 @@
+using HackathonProblem.Common.models;
+
 namespace HackathonProblem.Developer.models;
 
 public class DeveloperConfig

@@ -13,7 +13,7 @@ public class HrManagerService(IHttpClientFactory factory, HrManagerConfig config
 
     public async Task<DetailResponse> PostTeamLeadWishlist(Wishlist wishlist)
     {
-        return await PostWishlist(wishlist, "/teamleads");
+        return await PostWishlist(wishlist, "/team-leads");
     }
 
     private async Task<DetailResponse> PostWishlist(Wishlist wishlist, string path)

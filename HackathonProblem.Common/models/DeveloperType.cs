@@ -1,4 +1,4 @@
-namespace HackathonProblem.Developer.models;
+namespace HackathonProblem.Common.models;
 
 public enum DeveloperType
 {
