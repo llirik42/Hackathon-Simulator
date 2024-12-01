@@ -26,7 +26,7 @@ public class HrDirectorWrapper(IHrDirector hrDirector, IHttpClientFactory factor
     public DetailResponse PostHackathonData(List<Team> teams, List<Wishlist> juniorsWishlists, List<Wishlist> teamLeadsWishlists)
     {
         var httpClient = factory.CreateClient();
-        var requestUri = $"{config.HrDirectorConnectionString}/hackathons";
+        var requestUri = $"{config.ConnectionString}/hackathons";
         var request = new HackathonDataRequest
         {
             Teams = teams.Select(teamMapper.TeamToShortTeam).ToList(),
