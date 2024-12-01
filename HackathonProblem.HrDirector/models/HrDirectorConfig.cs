@@ -1,3 +1,8 @@
 namespace HackathonProblem.HrDirector.models;
 
-public record HrDirectorConfig(string JuniorsUrl, string TeamLeadsUrl);
+public class HrDirectorConfig
+{
+    public string JuniorsUrl { get; set; }
+    
+    public string TeamLeadsUrl { get; set; }
+}

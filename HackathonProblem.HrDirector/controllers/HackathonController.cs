@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HackathonProblem.HrDirector.controllers;
 
-[Route("hackathons")]
 public class HackathonController(
     HrDirectorConfig config,
     IStorageService storageService,
@@ -17,7 +16,7 @@ public class HackathonController(
     IHackathonOrganizer hackathonOrganizer,
     TeamMapper teamMapper)
 {
-    [HttpPost]
+    [HttpPost("hackathons")]
     public DetailResponse PostHackathon([FromBody] HackathonDataRequest request)
     {
         var juniors = employeeProvider.Provide(config.JuniorsUrl);
@@ -36,6 +35,12 @@ public class HackathonController(
         return new DetailResponse("Teams and wishlists accepted");
     }
 
+    [HttpGet("health-check")]
+    public DetailResponse HealtCheck()
+    {
+        return new DetailResponse("I am alive");
+    }
+    
     private void AddJuniorsToDatabase(List<Employee> juniors)
     {
         foreach (var j in juniors.Where(j => !storageService.CreateJunior(j)))
