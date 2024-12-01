@@ -5,6 +5,7 @@ using HackathonProblem.HrManager.domain;
 using HackathonProblem.HrManager.models;
 using HackathonProblem.HrManager.services.hackathonService;
 using HackathonProblem.HrManager.services.hrDirectorService;
+using HackathonProblem.HrManager.services.hrDirectorService.wrapper;
 using HackathonProblem.HrManager.services.wishlistService;
 using Microsoft.Extensions.Options;
 
@@ -22,6 +23,8 @@ builder.Services.AddSingleton<IHrDirector, HrDirectorService>();
 builder.Services.AddSingleton<IHrManager, HrManager>();
 builder.Services.AddSingleton(_ => new TeamMapper());
 builder.Services.AddSingleton<IEmployeeProvider, CsvEmployeeProvider>();
+builder.Services.AddSingleton<IHrDirectorWrapper, HrDirectorWrapper>();
+builder.Services.AddSingleton<IHrDirector, HrDirectorService>();
 builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
