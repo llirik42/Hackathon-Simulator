@@ -1,6 +1,6 @@
 namespace HackathonProblem.CsvEmployeeProvider;
 
-public class CsvSettings
+public class CsvConfig
 {
     public required string Delimiter { get; init; }
 

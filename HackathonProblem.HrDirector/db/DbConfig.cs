@@ -1,6 +1,6 @@
 namespace HackathonProblem.HrDirector.db;
 
-public class DbSettings
+public class DbConfig
 {
     public required string ConnectionString { get; init; } = "";
 }

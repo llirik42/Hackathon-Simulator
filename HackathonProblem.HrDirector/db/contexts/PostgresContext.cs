@@ -4,16 +4,16 @@ namespace HackathonProblem.HrDirector.db.contexts;
 
 public class PostgresContext : AbstractContext
 {
-    private readonly DbSettings _settings;
+    private readonly DbConfig _config;
 
-    public PostgresContext(DbSettings settings)
+    public PostgresContext(DbConfig config)
     {
-        _settings = settings;
+        _config = config;
         Database.Migrate();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_settings.ConnectionString).UseSnakeCaseNamingConvention();
+        optionsBuilder.UseNpgsql(_config.ConnectionString).UseSnakeCaseNamingConvention();
     }
 }

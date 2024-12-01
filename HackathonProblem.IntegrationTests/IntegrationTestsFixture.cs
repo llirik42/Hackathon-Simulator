@@ -16,7 +16,7 @@ public class IntegrationTestsFixture : IDisposable
     {
         var serviceCollection = new ServiceCollection();
 
-        serviceCollection.AddTransient<DbSettings>(_ => new DbSettings { ConnectionString = "Data Source=:memory:" });
+        serviceCollection.AddTransient<DbConfig>(_ => new DbConfig { ConnectionString = "Data Source=:memory:" });
         serviceCollection.AddSingleton<IWishlistProvider, RandomWishlistsProvider.RandomWishlistsProvider>();
         serviceCollection.AddTransient<IHrDirector, HrDirector.domain.HrDirector>();
         serviceCollection.AddTransient<IHrManager, HrManager.domain.HrManager>();

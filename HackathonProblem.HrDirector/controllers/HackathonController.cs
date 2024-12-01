@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HackathonProblem.HrDirector.controllers;
 
-[Route("[Controller]")]
+[Route("hackathons")]
 public class HackathonController(
     HrDirectorConfig config,
     IStorageService storageService,
@@ -18,7 +18,7 @@ public class HackathonController(
     TeamMapper teamMapper)
 {
     [HttpPost]
-    public DetailResponse Wishlists([FromBody] HackathonDataRequest request)
+    public DetailResponse PostHackathon([FromBody] HackathonDataRequest request)
     {
         var juniors = employeeProvider.Provide(config.JuniorsUrl);
         var teamLeads = employeeProvider.Provide(config.TeamLeadsUrl);

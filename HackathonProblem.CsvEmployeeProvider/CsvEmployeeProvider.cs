@@ -7,12 +7,12 @@ using HackathonProblem.Common.domain.entities;
 
 namespace HackathonProblem.CsvEmployeeProvider;
 
-public class CsvEmployeeProvider(CsvSettings settings) : IEmployeeProvider
+public class CsvEmployeeProvider(CsvConfig config) : IEmployeeProvider
 {
     private readonly CsvConfiguration _configuration = new(CultureInfo.InvariantCulture)
     {
-        Delimiter = settings.Delimiter,
-        Encoding = Encoding.GetEncoding(settings.Encoding)
+        Delimiter = config.Delimiter,
+        Encoding = Encoding.GetEncoding(config.Encoding)
     };
 
     public List<Employee> Provide(string filePath)

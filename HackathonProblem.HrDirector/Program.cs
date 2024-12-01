@@ -9,17 +9,17 @@ using HackathonProblem.HrDirector.services.hackathonOrganizer;
 using HackathonProblem.HrDirector.services.storageService;
 using Microsoft.Extensions.Options;
 
-const string juniorsUrl = "Juniors5.csv";
-const string teamLadsUrl = "Teamleads5.csv";
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.Configure<DbSettings>(builder.Configuration.GetRequiredSection("Db"));
-builder.Services.Configure<CsvSettings>(builder.Configuration.GetRequiredSection("Csv"));
-builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<CsvSettings>>().Value);
-builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<DbSettings>>().Value);
-builder.Services.AddSingleton(_ => new HrDirectorConfig(juniorsUrl, teamLadsUrl));
+builder.Services.Configure<DbConfig>(builder.Configuration.GetRequiredSection("Db"));
+builder.Services.Configure<CsvConfig>(builder.Configuration.GetRequiredSection("Csv"));
+builder.Services.Configure<HrDirectorConfig>(builder.Configuration.GetRequiredSection("HrDirector"));
+
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<CsvConfig>>().Value);
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<DbConfig>>().Value);
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<HrDirectorConfig>>().Value);
+
 builder.Services.AddDbContextFactory<PostgresContext>();
 builder.Services.AddTransient<IStorageService, DbStorageService<PostgresContext>>();
 builder.Services.AddSingleton<IEmployeeProvider, CsvEmployeeProvider>();
@@ -31,12 +31,20 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.MapControllerRoute("default", "{controller=Hackathon}");
+app.UseRouting();
+
+#pragma warning disable ASP0014
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+#pragma warning restore ASP0014
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
 app.Run();

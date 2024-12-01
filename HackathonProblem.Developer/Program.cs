@@ -12,10 +12,10 @@ using Microsoft.Extensions.Options;
 var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.Configure<HrManagerConfig>(builder.Configuration.GetRequiredSection("HrManager"));
-builder.Services.Configure<CsvSettings>(builder.Configuration.GetRequiredSection("Csv"));
+builder.Services.Configure<CsvConfig>(builder.Configuration.GetRequiredSection("Csv"));
 builder.Services.Configure<DeveloperConfig>(builder.Configuration.GetRequiredSection("Developer"));
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<HrManagerConfig>>().Value);
-builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<CsvSettings>>().Value);
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<CsvConfig>>().Value);
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<DeveloperConfig>>().Value);
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<IEmployeeProvider, CsvEmployeeProvider>();

@@ -2,13 +2,12 @@ using HackathonProblem.Common;
 using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.domain.entities;
 using HackathonProblem.Common.models;
-using HackathonProblem.HrManager.models;
 
 namespace HackathonProblem.HrManager.services.hrDirectorService;
 
 public class HrDirectorService(
     IHttpClientFactory factory,
-    HrManagerConfig config) : IHrDirector
+    HrDirectorConfig config) : IHrDirector
 {
     public double CalculateValue(double[] numbers)
     {

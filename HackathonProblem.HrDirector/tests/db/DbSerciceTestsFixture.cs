@@ -13,7 +13,7 @@ public class DbServiceTestsFixture : IDisposable
     protected DbServiceTestsFixture()
     {
         var serviceCollection = new ServiceCollection();
-        serviceCollection.AddTransient<DbSettings>(_ => new DbSettings { ConnectionString = "Data Source=:memory:" });
+        serviceCollection.AddTransient<DbConfig>(_ => new DbConfig { ConnectionString = "Data Source=:memory:" });
         serviceCollection.AddDbContextFactory<InMemoryDbContext>();
         serviceCollection.AddScoped<IStorageService, DbStorageService<InMemoryDbContext>>();
 

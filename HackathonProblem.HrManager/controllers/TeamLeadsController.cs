@@ -6,24 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HackathonProblem.HrManager.controllers;
 
-[Route("[Controller]")]
+[Route("team-leads")]
 public class TeamLeadsController(
     IWishlistService wishlistService,
     IHackathonService hackathonService,
     HrManagerConfig config)
 {
     [HttpPost]
-    public async Task<DetailResponse> Wishlists([FromBody] WishlistRequest request)
+    public DetailResponse PostTeamLeadWishlist([FromBody] WishlistRequest request)
     {
         wishlistService.AddTeamLeadWishlist(request.ToWishlist());
 
         if (wishlistService.MatchWishlistsCount(config.EmployeeCount))
         {
-            var response = await hackathonService.BuildTeamsAndPost(wishlistService.GetJuniorsWishlists(),
+            var response = hackathonService.BuildTeamsAndPost(wishlistService.GetJuniorsWishlists(),
                 wishlistService.GetTeamLeadsWishlists());
             Console.WriteLine(response.Detail);
         }
 
-        return new DetailResponse($"Wishlist from teamlead-{request.EmployeeId} accepted");
+        return new DetailResponse($"Wishlist from team-lead - {request.EmployeeId} accepted");
     }
 }

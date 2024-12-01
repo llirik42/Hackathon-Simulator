@@ -2,16 +2,17 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_USER: hackathon
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5432:5432"
+      - ${DB_PORT}:5432
   
   hr-director:
     build:
       dockerfile: hrDirector.Dockerfile
     environment:
-      - ASPNETCORE_URLS=http://0.0.0.0:${HR_DIRECTOR_PORT}/
+      - ASPNETCORE_URLS=http://0.0.0.0:${HR_DIRECTOR_PORT}/ 
     ports:
       - ${HR_DIRECTOR_PORT}:${HR_DIRECTOR_PORT}
     depends_on:
@@ -21,7 +22,7 @@ services:
     build:
       dockerfile: hrManager.Dockerfile
     environment:
-      - ASPNETCORE_URLS=http://0.0.0.0:${HR_MANAGER_PORT}/
+      ASPNETCORE_URLS: http://0.0.0.0:${HR_MANAGER_PORT}/
     ports:
       - ${HR_MANAGER_PORT}:${HR_MANAGER_PORT}
     depends_on:
