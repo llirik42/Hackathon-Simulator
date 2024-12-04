@@ -16,9 +16,9 @@ services:
     environment:
         ASPNETCORE_URLS: http://0.0.0.0:${HR_DIRECTOR_PORT}/
         ASPNETCORE_ENVIRONMENT: Development
-        DB__CONNECTIONSTRING: Host=db;Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
-        HRDIRECTOR__JUNIORSURL: ${JUNIORS_URL}
-        HRDIRECTOR__TEAMLEADSURL: ${TEAM_LEADS_URL}
+        Db__ConnectionString: Host=db;Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
+        HrDirector__JuniorsUrl: ${JUNIORS_URL}
+        HrDirector__TeamLeadsUrl: ${TEAM_LEADS_URL}
     ports:
       - ${HR_DIRECTOR_PORT}:${HR_DIRECTOR_PORT}
     depends_on:
@@ -32,10 +32,10 @@ services:
     environment:
         ASPNETCORE_URLS: http://0.0.0.0:${HR_MANAGER_PORT}/
         ASPNETCORE_ENVIRONMENT: Development
-        HRDIRECTOR__CONNECTIONSTRING: http://hr-director:${HR_DIRECTOR_PORT}
-        HRMANAGER__EMPLOYEECOUNT: ${EMPLOYEE_COUNT}
-        HRMANAGER__JUNIORSURL: ${JUNIORS_URL}
-        HRMANAGER__TEAMLEADSURL: ${TEAM_LEADS_URL}
+        HrDirector__ConnectionString: http://hr-director:${HR_DIRECTOR_PORT}
+        HrManager__EmployeeCount: ${EMPLOYEE_COUNT}
+        HrManager__JuniorsUrl: ${JUNIORS_URL}
+        HrManager__TeamLeadsUrl: ${TEAM_LEADS_URL}
     ports:
       - ${HR_MANAGER_PORT}:${HR_MANAGER_PORT}
     depends_on:
@@ -47,9 +47,9 @@ services:
     build:
       dockerfile: developer.Dockerfile
     environment:
-      HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
-      DEVELOPER__JUNIORSURL: ${JUNIORS_URL}
-      DEVELOPER__TEAMLEADSURL: ${TEAM_LEADS_URL}
+      HrManager__ConnectionString: http://hr-manager:${HR_MANAGER_PORT}
+      Developer__JuniorsUrl: ${JUNIORS_URL}
+      Developer__TeamLeadsUrl: ${TEAM_LEADS_URL}
     depends_on:
       - hr-manager
     networks:
@@ -59,71 +59,71 @@ services:
     extends:
       service: developer
     environment:
-        DEVELOPER__ID: 1
-        DEVELOPER__TYPE: Junior
+        Developer__Id: 1
+        Developer__Type: Junior
 
   junior-2:
     extends:
       service: developer
     environment:
-      DEVELOPER__ID: 2
-      DEVELOPER__TYPE: Junior
+      Developer__Id: 2
+      Developer__Type: Junior
 
   junior-3:
     extends:
       service: developer
     environment:
-      DEVELOPER__ID: 3
-      DEVELOPER__TYPE: Junior
+      Developer__Id: 3
+      Developer__Type: Junior
 
   junior-4:
     extends:
       service: developer
     environment:
-      DEVELOPER__ID: 4
-      DEVELOPER__TYPE: Junior
+      Developer__Id: 4
+      Developer__Type: Junior
 
   junior-5:
     extends:
       service: developer
     environment:
-      DEVELOPER__ID: 5
-      DEVELOPER__TYPE: Junior
+      Developer__Id: 5
+      Developer__Type: Junior
 
   team-lead-1:
     extends:
       service: developer
     environment:
-      DEVELOPER__ID: 1
-      DEVELOPER__TYPE: TeamLead
+      Developer__Id: 1
+      Developer__Type: TeamLead
 
   team-lead-2:
     extends:
       service: developer
     environment:
-      DEVELOPER__ID: 2
-      DEVELOPER__TYPE: TeamLead
+      Developer__Id: 2
+      Developer__Type: TeamLead
 
   team-lead-3:
     extends:
       service: developer
     environment:
-      DEVELOPER__ID: 3
-      DEVELOPER__TYPE: TeamLead
+      Developer__Id: 3
+      Developer__Type: TeamLead
 
   team-lead-4:
     extends:
       service: developer
     environment:
-      DEVELOPER__ID: 4
-      DEVELOPER__TYPE: TeamLead
+      Developer__Id: 4
+      Developer__Type: TeamLead
 
   team-lead-5:
     extends:
       service: developer
     environment:
-      DEVELOPER__ID: 5
-      DEVELOPER__TYPE: TeamLead
+      Developer__Id: 5
+      Developer__Type: TeamLead
 
 networks:
   my_private_network:
