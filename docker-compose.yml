@@ -17,8 +17,6 @@ services:
         ASPNETCORE_URLS: http://0.0.0.0:${HR_DIRECTOR_PORT}/
         ASPNETCORE_ENVIRONMENT: Development
         DB__CONNECTIONSTRING: Host=db;Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
-        CSV__DELIMITER: ${CSV_DELIMITER}
-        CSV__ENCODING: ${CSV_ENCODING}
         HRDIRECTOR__JUNIORSURL: ${JUNIORS_URL}
         HRDIRECTOR__TEAMLEADSURL: ${TEAM_LEADS_URL}
     ports:
@@ -34,8 +32,6 @@ services:
     environment:
         ASPNETCORE_URLS: http://0.0.0.0:${HR_MANAGER_PORT}/
         ASPNETCORE_ENVIRONMENT: Development
-        CSV__DELIMITER: ${CSV_DELIMITER}
-        CSV__ENCODING: ${CSV_ENCODING}
         HRDIRECTOR__CONNECTIONSTRING: http://hr-director:${HR_DIRECTOR_PORT}
         HRMANAGER__EMPLOYEECOUNT: ${EMPLOYEE_COUNT}
         HRMANAGER__JUNIORSURL: ${JUNIORS_URL}
@@ -51,8 +47,6 @@ services:
     build:
       dockerfile: developer.Dockerfile
     environment:
-        CSV__DELIMITER: ${CSV_DELIMITER}
-        CSV__ENCODING: ${CSV_ENCODING}
         HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
         DEVELOPER__ID: 1
         DEVELOPER__TYPE: Junior
@@ -67,8 +61,6 @@ services:
     build:
       dockerfile: developer.Dockerfile
     environment:
-      CSV__DELIMITER: ${CSV_DELIMITER}
-      CSV__ENCODING: ${CSV_ENCODING}
       HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
       DEVELOPER__ID: 2
       DEVELOPER__TYPE: Junior
@@ -83,8 +75,6 @@ services:
     build:
       dockerfile: developer.Dockerfile
     environment:
-      CSV__DELIMITER: ${CSV_DELIMITER}
-      CSV__ENCODING: ${CSV_ENCODING}
       HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
       DEVELOPER__ID: 3
       DEVELOPER__TYPE: Junior
@@ -99,8 +89,6 @@ services:
     build:
       dockerfile: developer.Dockerfile
     environment:
-      CSV__DELIMITER: ${CSV_DELIMITER}
-      CSV__ENCODING: ${CSV_ENCODING}
       HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
       DEVELOPER__ID: 4
       DEVELOPER__TYPE: Junior
@@ -115,8 +103,6 @@ services:
     build:
       dockerfile: developer.Dockerfile
     environment:
-      CSV__DELIMITER: ${CSV_DELIMITER}
-      CSV__ENCODING: ${CSV_ENCODING}
       HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
       DEVELOPER__ID: 5
       DEVELOPER__TYPE: Junior
@@ -131,8 +117,6 @@ services:
     build:
       dockerfile: developer.Dockerfile
     environment:
-        CSV__DELIMITER: ${CSV_DELIMITER}
-        CSV__ENCODING: ${CSV_ENCODING}
         HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
         DEVELOPER__ID: 1
         DEVELOPER__TYPE: TeamLead
@@ -147,8 +131,6 @@ services:
     build:
       dockerfile: developer.Dockerfile
     environment:
-      CSV__DELIMITER: ${CSV_DELIMITER}
-      CSV__ENCODING: ${CSV_ENCODING}
       HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
       DEVELOPER__ID: 2
       DEVELOPER__TYPE: TeamLead
@@ -163,8 +145,6 @@ services:
     build:
       dockerfile: developer.Dockerfile
     environment:
-      CSV__DELIMITER: ${CSV_DELIMITER}
-      CSV__ENCODING: ${CSV_ENCODING}
       HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
       DEVELOPER__ID: 3
       DEVELOPER__TYPE: TeamLead
@@ -179,8 +159,6 @@ services:
     build:
       dockerfile: developer.Dockerfile
     environment:
-      CSV__DELIMITER: ${CSV_DELIMITER}
-      CSV__ENCODING: ${CSV_ENCODING}
       HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
       DEVELOPER__ID: 4
       DEVELOPER__TYPE: TeamLead
@@ -195,8 +173,6 @@ services:
     build:
       dockerfile: developer.Dockerfile
     environment:
-      CSV__DELIMITER: ${CSV_DELIMITER}
-      CSV__ENCODING: ${CSV_ENCODING}
       HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
       DEVELOPER__ID: 5
       DEVELOPER__TYPE: TeamLead
