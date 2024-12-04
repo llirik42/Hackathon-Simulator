@@ -34,12 +34,6 @@ public class HackathonController(
 
         return new DetailResponse("Teams and wishlists accepted");
     }
-
-    [HttpGet("health-check")]
-    public DetailResponse HealtCheck()
-    {
-        return new DetailResponse("I am alive");
-    }
     
     private void AddJuniorsToDatabase(List<Employee> juniors)
     {
