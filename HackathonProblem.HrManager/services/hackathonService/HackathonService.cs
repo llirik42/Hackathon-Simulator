@@ -24,41 +24,8 @@ public class HackathonService(
         var teamLeads = allTeamLeadsWishlists.Select(w => w.EmployeeId)
             .Select(teamLeadId => allTeamLeads.Single(y => y.Id == teamLeadId)).ToList();
         
-        Console.WriteLine("Teamleads");
-        foreach (var x in teamLeads)
-        {
-            Console.Write(x + " ");
-        }
-        Console.WriteLine(" ");
-        
-        Console.WriteLine("Juniors");
-        foreach (var x in juniors)
-        {
-            Console.Write(x + " ");
-        }
-        Console.WriteLine(" ");
-
-        Console.WriteLine("wishlists: teamleads");
-        foreach (var x in allTeamLeadsWishlists)
-        {
-            Console.Write(x.EmployeeId + " " + string.Join(", ", x.DesiredEmployees) + "\n");
-        }
-        Console.WriteLine(" ");
-        
-        Console.WriteLine("wishlists: juniors");
-        foreach (var x in allJuniorsWishlists)
-        {
-            Console.Write(x.EmployeeId + " " + string.Join(", ", x.DesiredEmployees) + "\n");
-        }
-        Console.WriteLine(" ");
-        
         var teams = hrManager.BuildTeams(teamLeads, juniors, allTeamLeadsWishlists, allJuniorsWishlists).ToList();
-
-        Console.WriteLine("Teams built!");
-
         var response = hrDirectorWrapper.PostHackathonData(teams, allJuniorsWishlists, allTeamLeadsWishlists);
-        
-        Console.WriteLine($"Teams sent: {response.Detail}");
         
         return response;
     }

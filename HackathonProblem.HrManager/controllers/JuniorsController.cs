@@ -16,8 +16,6 @@ public class JuniorsController(
     [HttpPost]
     public DetailResponse PostJuniorWishlist([FromBody] WishlistRequest request)
     {
-        Console.WriteLine($"Received: {request.EmployeeId} {string.Join(" ", request.DesiredEmployees)}");
-        
         wishlistService.AddJuniorWishlist(request.ToWishlist());
         
         lock (locker)

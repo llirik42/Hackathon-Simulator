@@ -17,8 +17,6 @@ public class TeamLeadsController(
     [HttpPost]
     public DetailResponse PostTeamLeadWishlist([FromBody] WishlistRequest request)
     {
-        Console.WriteLine($"Received: {request.EmployeeId} {string.Join(" ", request.DesiredEmployees)}");
-        
         wishlistService.AddTeamLeadWishlist(request.ToWishlist());
 
         lock (locker)
