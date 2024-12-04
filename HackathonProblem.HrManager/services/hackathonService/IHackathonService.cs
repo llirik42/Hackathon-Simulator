@@ -5,5 +5,5 @@ namespace HackathonProblem.HrManager.services.hackathonService;
 
 public interface IHackathonService
 {
-    DetailResponse BuildTeamsAndPost(List<Wishlist> juniorsWishlists, List<Wishlist> teamLeadsWishlists);
+    DetailResponse BuildTeamsAndPost(List<Wishlist> allJuniorsWishlists, List<Wishlist> allTeamLeadsWishlists);
 }

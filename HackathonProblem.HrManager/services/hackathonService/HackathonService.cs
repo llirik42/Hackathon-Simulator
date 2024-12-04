@@ -12,13 +12,54 @@ public class HackathonService(
     IHrManager hrManager,
     IHrDirectorWrapper hrDirectorWrapper) : IHackathonService
 {
-    public DetailResponse BuildTeamsAndPost(List<Wishlist> juniorsWishlists,
-        List<Wishlist> teamLeadsWishlists)
+    public DetailResponse BuildTeamsAndPost(List<Wishlist> allJuniorsWishlists,
+        List<Wishlist> allTeamLeadsWishlists)
     {
-        var juniors = employeeProvider.Provide(config.JuniorsUrl);
-        var teamLeads = employeeProvider.Provide(config.TeamLeadsUrl);
-        var teams = hrManager.BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists).ToList();
+        var allJuniors = employeeProvider.Provide(config.JuniorsUrl);
+        var allTeamLeads = employeeProvider.Provide(config.TeamLeadsUrl);
+
+        // Juniors and team leads presented in wishlists
+        var juniors = allJuniorsWishlists.Select(w => w.EmployeeId)
+            .Select(juniorId => allJuniors.Single(y => y.Id == juniorId)).ToList();
+        var teamLeads = allTeamLeadsWishlists.Select(w => w.EmployeeId)
+            .Select(teamLeadId => allTeamLeads.Single(y => y.Id == teamLeadId)).ToList();
         
-        return hrDirectorWrapper.PostHackathonData(teams, juniorsWishlists, teamLeadsWishlists);
+        Console.WriteLine("Teamleads");
+        foreach (var x in teamLeads)
+        {
+            Console.Write(x + " ");
+        }
+        Console.WriteLine(" ");
+        
+        Console.WriteLine("Juniors");
+        foreach (var x in juniors)
+        {
+            Console.Write(x + " ");
+        }
+        Console.WriteLine(" ");
+
+        Console.WriteLine("wishlists: teamleads");
+        foreach (var x in allTeamLeadsWishlists)
+        {
+            Console.Write(x.EmployeeId + " " + string.Join(", ", x.DesiredEmployees) + "\n");
+        }
+        Console.WriteLine(" ");
+        
+        Console.WriteLine("wishlists: juniors");
+        foreach (var x in allJuniorsWishlists)
+        {
+            Console.Write(x.EmployeeId + " " + string.Join(", ", x.DesiredEmployees) + "\n");
+        }
+        Console.WriteLine(" ");
+        
+        var teams = hrManager.BuildTeams(teamLeads, juniors, allTeamLeadsWishlists, allJuniorsWishlists).ToList();
+
+        Console.WriteLine("Teams built!");
+
+        var response = hrDirectorWrapper.PostHackathonData(teams, allJuniorsWishlists, allTeamLeadsWishlists);
+        
+        Console.WriteLine($"Teams sent: {response.Detail}");
+        
+        return response;
     }
 }

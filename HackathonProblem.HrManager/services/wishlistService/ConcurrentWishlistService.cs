@@ -1,41 +1,45 @@
 using System.Collections.Concurrent;
 using HackathonProblem.Common.domain.entities;
-using HackathonProblem.Common.models;
 
 namespace HackathonProblem.HrManager.services.wishlistService;
 
 public class ConcurrentWishlistService : IWishlistService
 {
-    private record DeveloperWishlist(Wishlist Wishlist, DeveloperType DeveloperType);
+    private readonly ConcurrentQueue<Wishlist> _juniorsWishlists = new();
     
-    private readonly ConcurrentQueue<DeveloperWishlist> _wishlists = new();
+    private readonly ConcurrentQueue<Wishlist> _teamLeadsWishlists = new();
     
     public void AddJuniorWishlist(Wishlist wishlist)
     {
-        _wishlists.Enqueue(new DeveloperWishlist(wishlist, DeveloperType.Junior));
+        _juniorsWishlists.Enqueue(wishlist);
     }
 
     public void AddTeamLeadWishlist(Wishlist wishlist)
     {
-        _wishlists.Enqueue(new DeveloperWishlist(wishlist, DeveloperType.TeamLead));
+        _teamLeadsWishlists.Enqueue(wishlist);
     }
 
-    public List<Wishlist> GetJuniorsWishlists()
+    public List<Wishlist> PopJuniorsWishlists()
     {
-        var juniorsWishlists = _wishlists.Where(w => w.DeveloperType == DeveloperType.Junior);
-        var wishlists = juniorsWishlists.Select(e => e.Wishlist);
-        return wishlists.ToList();
+        var result = _juniorsWishlists.ToList();
+        _juniorsWishlists.Clear();
+        return result;
     }
 
-    public List<Wishlist> GetTeamLeadsWishlists()
+    public List<Wishlist> PopTeamLeadsWishlists()
     {
-        var juniorsWishlists = _wishlists.Where(w => w.DeveloperType == DeveloperType.TeamLead);
-        var wishlists = juniorsWishlists.Select(e => e.Wishlist);
-        return wishlists.ToList();
+        var result = _teamLeadsWishlists.ToList();
+        _juniorsWishlists.Clear();
+        return result;
     }
 
-    public bool MatchWishlistsCount(int count)
+    public bool MatchJuniorsWishlistsCount(int count)
     {
-        return _wishlists.Count == count * 2;
+        return _juniorsWishlists.Count == count;
+    }
+
+    public bool MatchTeamLeadsWishlistsCount(int count)
+    {
+        return _teamLeadsWishlists.Count == count;
     }
 }

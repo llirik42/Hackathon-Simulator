@@ -1,6 +1,7 @@
 using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.mapping;
 using HackathonProblem.CsvEmployeeProvider;
+using HackathonProblem.HrManager.controllers;
 using HackathonProblem.HrManager.domain;
 using HackathonProblem.HrManager.models;
 using HackathonProblem.HrManager.services.hackathonService;
@@ -29,6 +30,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddSingleton(_ => new Locker());
 
 var app = builder.Build();
 

@@ -10,18 +10,26 @@ namespace HackathonProblem.HrManager.controllers;
 public class JuniorsController(
     IWishlistService wishlistService,
     IHackathonService hackathonService,
-    HrManagerConfig config)
+    HrManagerConfig config,
+    Locker locker)
 {
     [HttpPost]
     public DetailResponse PostJuniorWishlist([FromBody] WishlistRequest request)
     {
+        Console.WriteLine($"Received: {request.EmployeeId} {string.Join(" ", request.DesiredEmployees)}");
+        
         wishlistService.AddJuniorWishlist(request.ToWishlist());
         
-        if (wishlistService.MatchWishlistsCount(config.EmployeeCount))
+        lock (locker)
         {
-            var response = hackathonService.BuildTeamsAndPost(wishlistService.GetJuniorsWishlists(),
-                wishlistService.GetTeamLeadsWishlists());
-            Console.WriteLine(response.Detail);
+            var matchJuniors = wishlistService.MatchJuniorsWishlistsCount(config.EmployeeCount);
+            var matchTeamLeads = wishlistService.MatchTeamLeadsWishlistsCount(config.EmployeeCount);
+            
+            if (matchJuniors && matchTeamLeads)
+            {
+                hackathonService.BuildTeamsAndPost(wishlistService.PopJuniorsWishlists(),
+                    wishlistService.PopTeamLeadsWishlists());
+            }
         }
 
         return new DetailResponse($"Wishlist from junior - {request.EmployeeId} accepted");

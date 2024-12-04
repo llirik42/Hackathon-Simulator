@@ -36,7 +36,7 @@ services:
         ASPNETCORE_ENVIRONMENT: Development
         CSV__DELIMITER: ${CSV_DELIMITER}
         CSV__ENCODING: ${CSV_ENCODING}
-        HRDIRECTOR__CONNECTIONSTRING: http://hr-director:${HR_DIRECTOR_PORT}/
+        HRDIRECTOR__CONNECTIONSTRING: http://hr-director:${HR_DIRECTOR_PORT}
         HRMANAGER__EMPLOYEECOUNT: ${EMPLOYEE_COUNT}
         HRMANAGER__JUNIORSURL: ${JUNIORS_URL}
         HRMANAGER__TEAMLEADSURL: ${TEAM_LEADS_URL}
@@ -47,7 +47,7 @@ services:
     networks:
       - my_private_network
 
-  junior:
+  junior-1:
     build:
       dockerfile: developer.Dockerfile
     environment:
@@ -63,7 +63,71 @@ services:
     networks:
       - my_private_network
 
-  team-lead:
+  junior-2:
+    build:
+      dockerfile: developer.Dockerfile
+    environment:
+      CSV__DELIMITER: ${CSV_DELIMITER}
+      CSV__ENCODING: ${CSV_ENCODING}
+      HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
+      DEVELOPER__ID: 2
+      DEVELOPER__TYPE: Junior
+      DEVELOPER__JUNIORSURL: ${JUNIORS_URL}
+      DEVELOPER__TEAMLEADSURL: ${TEAM_LEADS_URL}
+    depends_on:
+      - hr-manager
+    networks:
+      - my_private_network
+
+  junior-3:
+    build:
+      dockerfile: developer.Dockerfile
+    environment:
+      CSV__DELIMITER: ${CSV_DELIMITER}
+      CSV__ENCODING: ${CSV_ENCODING}
+      HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
+      DEVELOPER__ID: 3
+      DEVELOPER__TYPE: Junior
+      DEVELOPER__JUNIORSURL: ${JUNIORS_URL}
+      DEVELOPER__TEAMLEADSURL: ${TEAM_LEADS_URL}
+    depends_on:
+      - hr-manager
+    networks:
+      - my_private_network
+
+  junior-4:
+    build:
+      dockerfile: developer.Dockerfile
+    environment:
+      CSV__DELIMITER: ${CSV_DELIMITER}
+      CSV__ENCODING: ${CSV_ENCODING}
+      HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
+      DEVELOPER__ID: 4
+      DEVELOPER__TYPE: Junior
+      DEVELOPER__JUNIORSURL: ${JUNIORS_URL}
+      DEVELOPER__TEAMLEADSURL: ${TEAM_LEADS_URL}
+    depends_on:
+      - hr-manager
+    networks:
+      - my_private_network
+
+  junior-5:
+    build:
+      dockerfile: developer.Dockerfile
+    environment:
+      CSV__DELIMITER: ${CSV_DELIMITER}
+      CSV__ENCODING: ${CSV_ENCODING}
+      HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
+      DEVELOPER__ID: 5
+      DEVELOPER__TYPE: Junior
+      DEVELOPER__JUNIORSURL: ${JUNIORS_URL}
+      DEVELOPER__TEAMLEADSURL: ${TEAM_LEADS_URL}
+    depends_on:
+      - hr-manager
+    networks:
+      - my_private_network
+
+  team-lead-1:
     build:
       dockerfile: developer.Dockerfile
     environment:
@@ -78,6 +142,71 @@ services:
       - hr-manager
     networks:
       - my_private_network
+
+  team-lead-2:
+    build:
+      dockerfile: developer.Dockerfile
+    environment:
+      CSV__DELIMITER: ${CSV_DELIMITER}
+      CSV__ENCODING: ${CSV_ENCODING}
+      HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
+      DEVELOPER__ID: 2
+      DEVELOPER__TYPE: TeamLead
+      DEVELOPER__JUNIORSURL: ${JUNIORS_URL}
+      DEVELOPER__TEAMLEADSURL: ${TEAM_LEADS_URL}
+    depends_on:
+      - hr-manager
+    networks:
+      - my_private_network
+  
+  team-lead-3:
+    build:
+      dockerfile: developer.Dockerfile
+    environment:
+      CSV__DELIMITER: ${CSV_DELIMITER}
+      CSV__ENCODING: ${CSV_ENCODING}
+      HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
+      DEVELOPER__ID: 3
+      DEVELOPER__TYPE: TeamLead
+      DEVELOPER__JUNIORSURL: ${JUNIORS_URL}
+      DEVELOPER__TEAMLEADSURL: ${TEAM_LEADS_URL}
+    depends_on:
+      - hr-manager
+    networks:
+      - my_private_network
+
+  team-lead-4:
+    build:
+      dockerfile: developer.Dockerfile
+    environment:
+      CSV__DELIMITER: ${CSV_DELIMITER}
+      CSV__ENCODING: ${CSV_ENCODING}
+      HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
+      DEVELOPER__ID: 4
+      DEVELOPER__TYPE: TeamLead
+      DEVELOPER__JUNIORSURL: ${JUNIORS_URL}
+      DEVELOPER__TEAMLEADSURL: ${TEAM_LEADS_URL}
+    depends_on:
+      - hr-manager
+    networks:
+      - my_private_network
+
+  team-lead-5:
+    build:
+      dockerfile: developer.Dockerfile
+    environment:
+      CSV__DELIMITER: ${CSV_DELIMITER}
+      CSV__ENCODING: ${CSV_ENCODING}
+      HRMANAGER__CONNECTIONSTRING: http://hr-manager:${HR_MANAGER_PORT}
+      DEVELOPER__ID: 5
+      DEVELOPER__TYPE: TeamLead
+      DEVELOPER__JUNIORSURL: ${JUNIORS_URL}
+      DEVELOPER__TEAMLEADSURL: ${TEAM_LEADS_URL}
+    depends_on:
+      - hr-manager
+    networks:
+      - my_private_network
+
 
 networks:
   my_private_network:
