@@ -7,9 +7,7 @@ services:
       POSTGRES_DB: ${DB_NAME}
     ports:
       - ${DB_PORT}:5432
-    networks:
-      - my_private_network
-  
+
   hr-director:
     build:
       dockerfile: hrDirector.Dockerfile
@@ -23,8 +21,6 @@ services:
       - ${HR_DIRECTOR_PORT}:${HR_DIRECTOR_PORT}
     depends_on:
       - db
-    networks:
-      - my_private_network
 
   hr-manager:
     build:
@@ -40,8 +36,6 @@ services:
       - ${HR_MANAGER_PORT}:${HR_MANAGER_PORT}
     depends_on:
       - hr-director
-    networks:
-      - my_private_network
 
   developer:
     build:
@@ -52,8 +46,6 @@ services:
       Developer__TeamLeadsUrl: ${TEAM_LEADS_URL}
     depends_on:
       - hr-manager
-    networks:
-      - my_private_network
 
   junior-1:
     extends:
@@ -124,7 +116,3 @@ services:
     environment:
       Developer__Id: 5
       Developer__Type: TeamLead
-
-networks:
-  my_private_network:
-    driver: bridge
