@@ -29,7 +29,7 @@ public class ConcurrentWishlistService : IWishlistService
     public List<Wishlist> PopTeamLeadsWishlists()
     {
         var result = _teamLeadsWishlists.ToList();
-        _juniorsWishlists.Clear();
+        _teamLeadsWishlists.Clear();
         return result;
     }
 
