@@ -7,4 +7,6 @@ public class WishlistDeclaration
     public DeveloperType DeveloperType { get; set; }
     
     public int[] DesiredEmployees { get; set; }
+
+    public int HackathonId { get; set; }
 }

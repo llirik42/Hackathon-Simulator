@@ -19,15 +19,19 @@ public class WishlistDeclarationConsumer(
     public Task Consume(ConsumeContext<WishlistDeclaration> context)
     {
         var message = context.Message;
+
+        logger.LogInformation("Received wishlist from {DeveloperType}-{DeveloperId} for hackathon {Hackathon}",
+            message.DeveloperType, message.DeveloperId, message.HackathonId);
+        
         SaveWishlist(message);
-       
+
         lock (locker)
         {
             var matchJuniors = wishlistService.MatchJuniorsWishlistsCount(config.EmployeeCount);
             var matchTeamLeads = wishlistService.MatchTeamLeadsWishlistsCount(config.EmployeeCount);
 
             if (!matchJuniors || !matchTeamLeads) return Task.CompletedTask;
-            
+
             var response = hackathonService.BuildTeamsAndPost(wishlistService.PopJuniorsWishlists(),
                 wishlistService.PopTeamLeadsWishlists());
             logger.LogInformation("Received response from director: {Response}", response.Detail);
