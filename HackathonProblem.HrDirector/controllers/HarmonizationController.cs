@@ -1,5 +1,7 @@
 using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.models;
+using HackathonProblem.Common.models.requests;
+using HackathonProblem.Common.models.responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HackathonProblem.HrDirector.controllers;

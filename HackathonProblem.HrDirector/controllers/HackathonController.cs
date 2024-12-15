@@ -2,6 +2,8 @@ using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.domain.entities;
 using HackathonProblem.Common.mapping;
 using HackathonProblem.Common.models;
+using HackathonProblem.Common.models.requests;
+using HackathonProblem.Common.models.responses;
 using HackathonProblem.HrDirector.models;
 using HackathonProblem.HrDirector.services.hackathonOrganizer;
 using HackathonProblem.HrDirector.services.storageService;
@@ -23,7 +25,7 @@ public class HackathonController(
     {
         var juniors = employeeProvider.Provide(config.JuniorsUrl);
         var teamLeads = employeeProvider.Provide(config.TeamLeadsUrl);
-        var teams = request.Teams.Select(t => teamMapper.ShortTeamToTeam(t, juniors, teamLeads)).ToList();
+        var teams = request.Teams.Select(t => TeamMapper.ShortTeamToTeam(t, juniors, teamLeads)).ToList();
         var hackathon = hackathonOrganizer.Organize(request.TeamLeadsWishlists, request.JuniorsWishlists, teams);
 
         AddJuniorsToDatabase(juniors);

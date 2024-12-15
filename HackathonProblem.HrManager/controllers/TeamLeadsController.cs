@@ -1,4 +1,6 @@
 using HackathonProblem.Common.models;
+using HackathonProblem.Common.models.requests;
+using HackathonProblem.Common.models.responses;
 using HackathonProblem.HrManager.models;
 using HackathonProblem.HrManager.services.hackathonService;
 using HackathonProblem.HrManager.services.wishlistService;

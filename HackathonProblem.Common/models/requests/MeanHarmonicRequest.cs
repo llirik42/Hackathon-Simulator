@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace HackathonProblem.Common.models;
+namespace HackathonProblem.Common.models.requests;
 
 public class MeanHarmonicRequest
 {

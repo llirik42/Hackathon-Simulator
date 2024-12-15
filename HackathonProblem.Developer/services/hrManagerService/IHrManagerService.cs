@@ -1,5 +1,6 @@
 using HackathonProblem.Common.domain.entities;
 using HackathonProblem.Common.models;
+using HackathonProblem.Common.models.responses;
 
 namespace HackathonProblem.Developer.services.hrManagerService;
 

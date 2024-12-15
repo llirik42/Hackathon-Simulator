@@ -3,6 +3,8 @@ using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.domain.entities;
 using HackathonProblem.Common.mapping;
 using HackathonProblem.Common.models;
+using HackathonProblem.Common.models.requests;
+using HackathonProblem.Common.models.responses;
 
 namespace HackathonProblem.HrManager.services.hrDirectorService.wrapper;
 
@@ -29,7 +31,7 @@ public class HrDirectorWrapper(IHrDirector hrDirector, IHttpClientFactory factor
         var requestUri = $"{config.ConnectionString}/hackathons";
         var request = new HackathonDataRequest
         {
-            Teams = teams.Select(teamMapper.TeamToShortTeam).ToList(),
+            Teams = teams.Select(TeamMapper.TeamToShortTeam).ToList(),
             JuniorsWishlists = juniorsWishlists,
             TeamLeadsWishlists = teamLeadsWishlists
         };

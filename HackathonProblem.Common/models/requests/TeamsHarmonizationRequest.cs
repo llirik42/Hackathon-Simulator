@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using HackathonProblem.Common.domain.entities;
 
-namespace HackathonProblem.Common.models;
+namespace HackathonProblem.Common.models.requests;
 
 public class TeamsHarmonizationRequest
 {
