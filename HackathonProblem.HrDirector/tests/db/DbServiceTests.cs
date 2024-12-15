@@ -21,7 +21,7 @@ public class DbServiceTest : DbServiceTestsFixture
     public void TestFindEmptyHackathon(int harmonization)
     {
         var service = GetService<IStorageService>();
-        var hackathonId = service.CreateHackathon(harmonization);
+        var hackathonId = service.CreateHackathon(harmonization).HackathonId;
         var hackathon = service.FindHackathon(hackathonId);
         Assert.NotNull(hackathon);
         Assert.Empty(hackathon.Teams);

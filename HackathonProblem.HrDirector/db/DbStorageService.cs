@@ -2,6 +2,7 @@ using System.Data;
 using HackathonProblem.Common.domain.entities;
 using HackathonProblem.HrDirector.db.contexts;
 using HackathonProblem.HrDirector.db.entities;
+using HackathonProblem.HrDirector.models;
 using HackathonProblem.HrDirector.services.storageService;
 using Microsoft.EntityFrameworkCore;
 
@@ -97,14 +98,14 @@ public class DbStorageService<T>(IDbContextFactory<T> factory) : IStorageService
         _db.SaveChanges();
     }
 
-    public int CreateHackathon(double harmonization)
+    public CreatedHackathon CreateHackathon(double harmonization)
     {
         var hackathonEntity = new HackathonEntity { Harmonization = harmonization };
 
         _db.Hackathons.Add(hackathonEntity);
         _db.SaveChanges();
 
-        return hackathonEntity.Id;
+        return new CreatedHackathon(hackathonEntity.Id, hackathonEntity.Harmonization);
     }
 
     public double GetAverageHarmonization()

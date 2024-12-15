@@ -1,4 +1,5 @@
 using HackathonProblem.Common.domain.entities;
+using HackathonProblem.HrDirector.models;
 
 namespace HackathonProblem.HrDirector.services.storageService;
 
@@ -14,7 +15,7 @@ public interface IStorageService
 
     void AddTeams(int hackathonId, List<Team> teams);
 
-    public int CreateHackathon(double harmonization);
+    public CreatedHackathon CreateHackathon(double harmonization);
 
     double GetAverageHarmonization();
 

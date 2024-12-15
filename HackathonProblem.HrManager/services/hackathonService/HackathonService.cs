@@ -10,7 +10,8 @@ public class HackathonService(
     IEmployeeProvider employeeProvider,
     HrManagerConfig config,
     IHrManager hrManager,
-    IHrDirectorWrapper hrDirectorWrapper) : IHackathonService
+    IHrDirectorWrapper hrDirectorWrapper, 
+    ILogger<HackathonService> logger) : IHackathonService
 {
     public DetailResponse BuildTeamsAndPost(List<Wishlist> allJuniorsWishlists,
         List<Wishlist> allTeamLeadsWishlists)
@@ -25,7 +26,9 @@ public class HackathonService(
             .Select(teamLeadId => allTeamLeads.Single(y => y.Id == teamLeadId)).ToList();
         
         var teams = hrManager.BuildTeams(teamLeads, juniors, allTeamLeadsWishlists, allJuniorsWishlists).ToList();
+        
         var response = hrDirectorWrapper.PostHackathonData(teams, allJuniorsWishlists, allTeamLeadsWishlists);
+        logger.LogInformation("Received response from director: \"{Response}\"", response.Detail);
         
         return response;
     }

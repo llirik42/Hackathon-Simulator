@@ -4,6 +4,7 @@ using HackathonProblem.Common.models;
 using HackathonProblem.Developer.models;
 using HackathonProblem.Developer.services.hrManagerService;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace HackathonProblem.Developer;
 
@@ -11,13 +12,14 @@ public class Worker(
     DeveloperConfig config,
     IEmployeeProvider employeeProvider,
     IWishlistProvider wishlistProvider,
-    IHrManagerService hrManagerService) : BackgroundService
+    IHrManagerService hrManagerService,
+    ILogger<Worker> logger) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         var wishlist = GetWishlist();
         var response = await SendRequest(wishlist);
-        Console.WriteLine(response.Detail);
+        logger.LogInformation("Received response from manager: \"{Response}\"", response.Detail);
     }
 
     private Wishlist GetWishlist()

@@ -14,7 +14,9 @@ public class HackathonController(
     IStorageService storageService,
     IEmployeeProvider employeeProvider,
     IHackathonOrganizer hackathonOrganizer,
-    TeamMapper teamMapper)
+    TeamMapper teamMapper,
+    ILogger<HackathonController> logger
+)
 {
     [HttpPost("hackathons")]
     public DetailResponse PostHackathon([FromBody] HackathonDataRequest request)
@@ -26,24 +28,28 @@ public class HackathonController(
 
         AddJuniorsToDatabase(juniors);
         AddTeamLeadsToDatabase(teamLeads);
-        var hackathonId = storageService.CreateHackathon(hackathon.Harmonization);
+        var (createdHackathonId, createdHackathonHarmonization) =
+            storageService.CreateHackathon(hackathon.Harmonization);
 
-        storageService.AddTeams(hackathonId, hackathon.Teams);
-        storageService.AddJuniorWishlists(hackathonId, request.JuniorsWishlists);
-        storageService.AddTeamLeadWishlists(hackathonId, request.TeamLeadsWishlists);
+        storageService.AddTeams(createdHackathonId, hackathon.Teams);
+        storageService.AddJuniorWishlists(createdHackathonId, request.JuniorsWishlists);
+        storageService.AddTeamLeadWishlists(createdHackathonId, request.TeamLeadsWishlists);
+
+        logger.LogInformation("Hackathon {HackathonId} with harmonization {Harmonization} is created",
+            createdHackathonId, createdHackathonHarmonization);
 
         return new DetailResponse("Teams and wishlists accepted");
     }
-    
+
     private void AddJuniorsToDatabase(List<Employee> juniors)
     {
         foreach (var j in juniors.Where(j => !storageService.CreateJunior(j)))
-            Console.WriteLine($"Warning: junior {j.Id} already exists!");
+            logger.LogWarning("Junior {JuniorId} already exists", j.Id);
     }
 
     private void AddTeamLeadsToDatabase(List<Employee> teamLeads)
     {
         foreach (var t in teamLeads.Where(j => !storageService.CreateTeamLead(j)))
-            Console.WriteLine($"Warning: team-lead {t.Id} already exists!");
+            logger.LogWarning("Team lead {TeamLeadId} already exists", t.Id);
     }
 }
