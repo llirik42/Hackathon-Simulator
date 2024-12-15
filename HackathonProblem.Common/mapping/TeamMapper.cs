@@ -5,7 +5,7 @@ namespace HackathonProblem.Common.mapping;
 
 public class TeamMapper
 {
-    public static Team ShortTeamToTeam(ShortTeam shortTeam, List<Employee> juniors, List<Employee> teamLeads)
+    public Team ShortTeamToTeam(ShortTeam shortTeam, List<Employee> juniors, List<Employee> teamLeads)
     {
         var teamLead = teamLeads.Find(t => t.Id == shortTeam.TeamLeadId);
         var junior = juniors.Find(j => j.Id == shortTeam.JuniorId);
@@ -15,7 +15,7 @@ public class TeamMapper
         return new Team(teamLead, junior);
     }
 
-    public static ShortTeam TeamToShortTeam(Team team)
+    public ShortTeam TeamToShortTeam(Team team)
     {
         return new ShortTeam { TeamLeadId = team.TeamLead.Id, JuniorId = team.Junior.Id };
     }

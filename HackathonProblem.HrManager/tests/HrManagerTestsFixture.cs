@@ -1,4 +1,5 @@
 using HackathonProblem.Common.domain.contracts;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
 namespace HackathonProblem.HrManager.tests;

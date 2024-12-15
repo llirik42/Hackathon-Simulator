@@ -1,16 +1,20 @@
 using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.mapping;
 using HackathonProblem.CsvEmployeeProvider;
-using HackathonProblem.HrManager.controllers;
+using HackathonProblem.HrManager.consumers;
 using HackathonProblem.HrManager.domain;
 using HackathonProblem.HrManager.models;
 using HackathonProblem.HrManager.services.hackathonService;
 using HackathonProblem.HrManager.services.hrDirectorService;
 using HackathonProblem.HrManager.services.hrDirectorService.wrapper;
 using HackathonProblem.HrManager.services.wishlistService;
+using MassTransit;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.Configure<CsvConfig>(builder.Configuration.GetRequiredSection("Csv"));
 builder.Services.Configure<HrDirectorConfig>(builder.Configuration.GetRequiredSection("HrDirector"));
@@ -27,27 +31,25 @@ builder.Services.AddSingleton<IEmployeeProvider, CsvEmployeeProvider>();
 builder.Services.AddSingleton<IHrDirectorWrapper, HrDirectorWrapper>();
 builder.Services.AddSingleton<IHrDirector, HrDirectorService>();
 builder.Services.AddHttpClient();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
 builder.Services.AddSingleton(_ => new Locker());
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h =>
+        {
+            h.Username("hackathon");
+            h.Password("password");
+        });
+        // cfg.ReceiveEndpoint("hackathon-declaration-events", e =>
+        // {
+        //     e.ExchangeType = "direct";
+        //     //e.Consumer<HackathonDeclarationEventConsumer>();
+        // });
+    });
+});
+
 
 var app = builder.Build();
-
-app.UseRouting();
-
-#pragma warning disable ASP0014
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
-#pragma warning restore ASP0014
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseDeveloperExceptionPage();
-}
 
 app.Run();

@@ -1,6 +1,6 @@
-namespace HackathonProblem.Common.models.events;
+namespace HackathonProblem.Common.models.message;
 
-public class WishlistDeclarationEvent
+public class WishlistDeclaration
 {
     public int DeveloperId { get; set; }
     
