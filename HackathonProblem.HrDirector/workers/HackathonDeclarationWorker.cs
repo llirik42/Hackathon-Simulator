@@ -12,7 +12,7 @@ public class HackathonDeclarationWorker(
     public Task StartAsync(CancellationToken cancellationToken)
     {
         var hackathonId = storageService.CreateHackathon();
-        logger.LogInformation("Hackathon {Hackathon} has started", hackathonId);
+        logger.LogInformation("Hackathon-{Hackathon} has started", hackathonId);
         var message = new HackathonDeclaration { HackathonId = hackathonId };
         bus.Publish(message, cancellationToken);
         logger.LogInformation("Sent declaration of hackathon {Hackathon}", hackathonId);

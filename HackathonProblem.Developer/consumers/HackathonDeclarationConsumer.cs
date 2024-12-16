@@ -13,18 +13,20 @@ public class HackathonDeclarationConsumer(
     IEmployeeProvider employeeProvider,
     IWishlistProvider wishlistProvider,
     IBus bus,
-    ILogger<HackathonDeclarationConsumer> logger) : IConsumer
+    ILogger<HackathonDeclarationConsumer> logger) : IConsumer<HackathonDeclaration>
 {
     public Task Consume(ConsumeContext<HackathonDeclaration> context)
     {
         var hackathonId = context.Message.HackathonId;
-        logger.LogInformation("Received message about new hackathon {HackathonId}", hackathonId);
+        logger.LogInformation("Received message about new hackathon-{HackathonId}", hackathonId);
+        
         var wishlist = GetWishlist();
         bus.Publish(new WishlistDeclaration
         {
             HackathonId = hackathonId, DeveloperType = config.Type, DeveloperId = config.Id,
             DesiredEmployees = wishlist.DesiredEmployees
         });
+        logger.LogInformation("Wishlist sent for hackathon-{HackathonId}", hackathonId);
 
         return Task.CompletedTask;
     }
