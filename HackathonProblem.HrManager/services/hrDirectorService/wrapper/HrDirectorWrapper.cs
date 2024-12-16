@@ -29,13 +29,14 @@ public class HrDirectorWrapper(
         return hrDirector.CalculateEmployeeHarmonization(desiredEmployees, desiredEmployeeId);
     }
 
-    public DetailResponse PostTeams(List<Team> teams)
+    public DetailResponse PostTeams(List<Team> teams, int hackathonId)
     {
         var httpClient = factory.CreateClient();
         var requestUri = $"{config.ConnectionString}/teams";
         var request = new TeamsRequest
         {
-            Teams = teams.Select(teamMapper.TeamToShortTeam).ToList()
+            Teams = teams.Select(teamMapper.TeamToShortTeam).ToList(),
+            HackathonId = hackathonId
         };
 
         return NetworkUtils.PostForEntity<TeamsRequest, DetailResponse>(httpClient, requestUri, request).Result;

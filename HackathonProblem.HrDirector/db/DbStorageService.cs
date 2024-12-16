@@ -30,16 +30,15 @@ public class DbStorageService<T>(IDbContextFactory<T> factory) : IStorageService
 
     public bool CreateTeamLead(Employee teamLead)
     {
-        using var db = factory.CreateDbContext();
-        using var transaction = db.Database.BeginTransaction(IsolationLevel.RepeatableRead);
+        using var transaction = _db.Database.BeginTransaction(IsolationLevel.RepeatableRead);
 
-        if (db.TeamLeads.Any(t => t.Id == teamLead.Id)) return false;
+        if (_db.TeamLeads.Any(t => t.Id == teamLead.Id)) return false;
 
         var teamLeadId = teamLead.Id;
         var entity = new TeamLeadEntity { Id = teamLeadId, Name = teamLead.Name };
 
-        db.TeamLeads.Add(entity);
-        db.SaveChanges();
+        _db.TeamLeads.Add(entity);
+        _db.SaveChanges();
         transaction.Commit();
 
         return true;
@@ -98,14 +97,40 @@ public class DbStorageService<T>(IDbContextFactory<T> factory) : IStorageService
         _db.SaveChanges();
     }
 
-    public CreatedHackathon CreateHackathon(double harmonization)
+    public int CreateHackathon()
     {
-        var hackathonEntity = new HackathonEntity { Harmonization = harmonization };
+        var hackathonEntity = new HackathonEntity();
 
         _db.Hackathons.Add(hackathonEntity);
         _db.SaveChanges();
 
+        return hackathonEntity.Id;
+    }
+
+    public CreatedHackathon CreateHackathon(double harmonization)
+    {
+        var hackathonEntity = new HackathonEntity{Harmonization = harmonization};
+        
+        _db.Hackathons.Add(hackathonEntity);
+        _db.SaveChanges();
+
         return new CreatedHackathon(hackathonEntity.Id, hackathonEntity.Harmonization);
+    }
+
+    public void SetHackathonHarmonization(int hackathonId, double harmonization)
+    {
+        using var transaction = _db.Database.BeginTransaction(IsolationLevel.RepeatableRead);
+        
+        var hackathonEntity = _db.Hackathons.Find(hackathonId);
+        if (hackathonEntity == null)
+        {
+            throw new HackathonNotFoundException(hackathonId);
+        }
+
+        hackathonEntity.Harmonization = harmonization;
+        
+        _db.SaveChanges();
+        transaction.Commit();
     }
 
     public double GetAverageHarmonization()
@@ -114,7 +139,14 @@ public class DbStorageService<T>(IDbContextFactory<T> factory) : IStorageService
 
         if (!_db.Hackathons.Any()) throw new NoHackathonsFoundException();
 
-        return _db.Hackathons.Average(h => h.Harmonization);
+        var result = _db.Hackathons.Average(h => h.Harmonization);
+
+        if (result == null)
+        {
+            throw new NoHackathonsFoundException();
+        }
+
+        return result.Value;
     }
 
     public Hackathon? FindHackathon(int hackathonId)
@@ -123,8 +155,18 @@ public class DbStorageService<T>(IDbContextFactory<T> factory) : IStorageService
 
         var hackathonEntity = _db.Hackathons.Find(hackathonId);
 
-        if (hackathonEntity == null) return null;
+        if (hackathonEntity == null)
+        {
+            return null;
+        }
 
+       
+        var harmonization = hackathonEntity.Harmonization;
+        if (harmonization == null)
+        {
+            throw new NoHarmonizationException(hackathonId);
+        }
+        
         var teamsEntities = _db.Teams.Where(t => t.HackathonId == hackathonEntity.Id);
         var teams = (from t in teamsEntities.Include(teamEntity => teamEntity.TeamLead)
                 .Include(teamEntity => teamEntity.Junior)
@@ -132,7 +174,7 @@ public class DbStorageService<T>(IDbContextFactory<T> factory) : IStorageService
             let junior = JuniorToEmployee(t.Junior)
             select new Team(teamLead, junior)).ToList();
 
-        return new Hackathon(teams, hackathonEntity.Harmonization);
+        return new Hackathon(teams, harmonization.Value);
     }
 
     private static Employee JuniorToEmployee(JuniorEntity junior)

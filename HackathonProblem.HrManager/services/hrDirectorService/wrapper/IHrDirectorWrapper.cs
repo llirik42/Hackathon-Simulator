@@ -6,5 +6,5 @@ namespace HackathonProblem.HrManager.services.hrDirectorService.wrapper;
 
 public interface IHrDirectorWrapper : IHrDirector
 {
-    DetailResponse PostTeams(List<Team> teams);
+    DetailResponse PostTeams(List<Team> teams, int hackathonId);
 }

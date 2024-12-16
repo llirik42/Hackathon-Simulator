@@ -1,5 +1,6 @@
 using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.mapping;
+using HackathonProblem.Common.models.message;
 using HackathonProblem.CsvEmployeeProvider;
 using HackathonProblem.HrDirector.db;
 using HackathonProblem.HrDirector.db.contexts;
@@ -7,6 +8,8 @@ using HackathonProblem.HrDirector.domain;
 using HackathonProblem.HrDirector.models;
 using HackathonProblem.HrDirector.services.hackathonOrganizer;
 using HackathonProblem.HrDirector.services.storageService;
+using HackathonProblem.HrDirector.workers;
+using MassTransit;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +31,19 @@ builder.Services.AddSingleton<IHrDirector, HrDirector>();
 builder.Services.AddSingleton(_ => new TeamMapper());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHostedService<HackathonDeclarationWorker>();
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("rabbitmq", "/", h =>
+        {
+            h.Username("hackathon");
+            h.Password("password");
+        });
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 var app = builder.Build();
 

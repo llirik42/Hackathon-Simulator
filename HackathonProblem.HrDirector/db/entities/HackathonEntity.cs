@@ -6,5 +6,5 @@ public class HackathonEntity
 
     public DateTime CreationDate { get; init; }
 
-    public required double Harmonization { get; init; }
+    public double? Harmonization { get; set; }
 }

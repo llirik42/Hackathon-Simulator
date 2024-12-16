@@ -55,7 +55,7 @@ public class IntegrationTests : IntegrationTestsFixture
     {
         const int harmonization = 1;
         var service = GetService<IStorageService>();
-        var hackathonId = service.CreateHackathon(harmonization);
+        var hackathonId = service.CreateHackathon(harmonization).HackathonId;
 
         var juniors = TestUtils.GetSimpleEmployees(count);
         var teamLeads = TestUtils.GetSimpleEmployees(count);

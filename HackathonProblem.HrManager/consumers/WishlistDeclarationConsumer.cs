@@ -2,7 +2,7 @@ using HackathonProblem.Common.domain.entities;
 using HackathonProblem.Common.models;
 using HackathonProblem.Common.models.message;
 using HackathonProblem.HrManager.models;
-using HackathonProblem.HrManager.services.hackathonService;
+using HackathonProblem.HrManager.services.teamService;
 using HackathonProblem.HrManager.services.wishlistService;
 using MassTransit;
 using Microsoft.Extensions.Logging;
@@ -11,7 +11,7 @@ namespace HackathonProblem.HrManager.consumers;
 
 public class WishlistDeclarationConsumer(
     IWishlistService wishlistService,
-    IHackathonService hackathonService,
+    ITeamService teamService,
     HrManagerConfig config,
     Locker locker,
     ILogger<WishlistDeclarationConsumer> logger) : IConsumer<WishlistDeclaration>
@@ -32,8 +32,11 @@ public class WishlistDeclarationConsumer(
 
             if (!matchJuniors || !matchTeamLeads) return Task.CompletedTask;
 
-            var response = hackathonService.BuildTeamsAndPost(wishlistService.PopJuniorsWishlists(),
-                wishlistService.PopTeamLeadsWishlists());
+            var hackathonId = message.HackathonId;
+            var juniorsWishlists = wishlistService.GetJuniorsWishlists();
+            var teamLeadsWishlists = wishlistService.GetTeamLeadsWishlists();
+            
+            var response = teamService.BuildTeamsAndPost(hackathonId, juniorsWishlists, teamLeadsWishlists);
             logger.LogInformation("Received response from director: {Response}", response.Detail);
         }
 

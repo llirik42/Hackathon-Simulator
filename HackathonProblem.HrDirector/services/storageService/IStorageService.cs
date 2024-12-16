@@ -15,8 +15,12 @@ public interface IStorageService
 
     void AddTeams(int hackathonId, List<Team> teams);
 
+    public int CreateHackathon();
+    
     public CreatedHackathon CreateHackathon(double harmonization);
-
+    
+    public void SetHackathonHarmonization(int hackathonId, double harmonization);
+    
     double GetAverageHarmonization();
 
     Hackathon? FindHackathon(int hackathonId);

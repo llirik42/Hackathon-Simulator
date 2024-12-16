@@ -11,7 +11,7 @@ services:
     image: postgres
     container_name: postgres
     environment:
-      POSTGRES_USER: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     ports:
@@ -22,7 +22,7 @@ services:
     container_name: rabbitmq
     ports:
       - ${RABBITMQ_PORT}:5672
-      - ${RABBITMQ_UI_PORT}:${RABBITMQ_UI_PORT}
+      - ${RABBITMQ_UI_PORT}:15672
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
@@ -48,22 +48,17 @@ services:
     build:
       dockerfile: hrManager.Dockerfile
     environment:
-      ASPNETCORE_URLS: http://0.0.0.0:${HR_MANAGER_PORT}/
-      ASPNETCORE_ENVIRONMENT: Development
       HrDirector__ConnectionString: http://hr-director:${HR_DIRECTOR_PORT}
       HrManager__EmployeeCount: ${EMPLOYEE_COUNT}
       HrManager__JuniorsUrl: ${JUNIORS_URL}
       HrManager__TeamLeadsUrl: ${TEAM_LEADS_URL}
-    ports:
-      - ${HR_MANAGER_PORT}:${HR_MANAGER_PORT}
     depends_on:
       - hr-director
-  
+
   junior-1:
     build:
       dockerfile: developer.Dockerfile
     environment:
-      HrManager__ConnectionString: http://hr-manager:${HR_MANAGER_PORT}
       Developer__JuniorsUrl: ${JUNIORS_URL}
       Developer__TeamLeadsUrl: ${TEAM_LEADS_URL}
       Developer__Id: 1
@@ -71,7 +66,7 @@ services:
     container_name: junior-1
     depends_on:
       - hr-manager
-  
+
   junior-2:
     container_name: junior-2
     extends:
