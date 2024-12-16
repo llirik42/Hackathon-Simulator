@@ -38,7 +38,7 @@ public class HrDirectorWrapper(
             Teams = teams.Select(teamMapper.TeamToShortTeam).ToList(),
             HackathonId = hackathonId
         };
-
+        
         return NetworkUtils.PostForEntity<TeamsRequest, DetailResponse>(httpClient, requestUri, request).Result;
     }
 }

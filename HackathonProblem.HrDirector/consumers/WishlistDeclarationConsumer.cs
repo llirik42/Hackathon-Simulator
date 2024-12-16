@@ -13,7 +13,8 @@ public class WishlistDeclarationConsumer(
     public Task Consume(ConsumeContext<WishlistDeclaration> context)
     {
         var message = context.Message;
-        logger.LogInformation("Received wishlist-declaration-message: {Message}", message);
+        logger.LogInformation("Received wishlist from {DeveloperType}-{DeveloperId} for hackathon-{Hackathon}",
+            message.DeveloperType, message.DeveloperId, message.HackathonId);
         var wishlist = new Wishlist(message.DeveloperId, message.DesiredEmployees);
 
         if (message.DeveloperType == DeveloperType.Junior)

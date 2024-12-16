@@ -1,5 +1,4 @@
 using HackathonProblem.Common.domain.contracts;
-using HackathonProblem.Common.models;
 using HackathonProblem.Common.models.requests;
 using HackathonProblem.Common.models.responses;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +20,7 @@ public class HarmonizationController(IHrDirector hrDirector)
     }
     
     [HttpPost("employee-harmonization")]
-    public DoubleResponse TeamsHarmonization([FromBody] EmployeeHarmonizationRequest request)
+    public DoubleResponse EmployeeHarmonization([FromBody] EmployeeHarmonizationRequest request)
     {
         return new DoubleResponse(
             hrDirector.CalculateEmployeeHarmonization(request.DesiredEmployees, request.DesiredEmployeeId));

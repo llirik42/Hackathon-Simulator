@@ -52,6 +52,26 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+      junior-1:
+        condition: service_started
+      junior-2:
+        condition: service_started
+      junior-3:
+        condition: service_started
+      junior-4:
+        condition: service_started
+      junior-5:
+        condition: service_started
+      team-lead-1:
+        condition: service_started
+      team-lead-2:
+        condition: service_started
+      team-lead-3:
+        condition: service_started
+      team-lead-4:
+        condition: service_started
+      team-lead-5:
+        condition: service_started
         
   hr-manager:
     container_name: hr-manager
@@ -63,9 +83,13 @@ services:
       HrManager__JuniorsUrl: ${JUNIORS_URL}
       HrManager__TeamLeadsUrl: ${TEAM_LEADS_URL}
     depends_on:
-      - hr-director
+      rabbitmq:
+        condition: service_healthy    
+      hr-director:
+        condition: service_started
           
   junior-1:
+    container_name: junior-1
     build:
       dockerfile: developer.Dockerfile
     environment:
@@ -73,9 +97,9 @@ services:
       Developer__TeamLeadsUrl: ${TEAM_LEADS_URL}
       Developer__Id: 1
       Developer__Type: Junior
-    container_name: junior-1
     depends_on:
-      - hr-manager
+      rabbitmq:
+        condition: service_healthy
 
   junior-2:
     container_name: junior-2

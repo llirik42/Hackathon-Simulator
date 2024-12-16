@@ -24,11 +24,13 @@ public class HrDirectorService(
     {
         var httpClient = factory.CreateClient();
         var requestUri = $"{config.ConnectionString}/teams-harmonization";
+        
         var request = new TeamsHarmonizationRequest
         {
             Teams = teams.ToList(), JuniorsWishlists = juniorsWishlists.ToList(),
             TeamLeadsWishlists = teamLeadsWishlists.ToList()
         };
+        
         return NetworkUtils.PostForEntity<TeamsHarmonizationRequest, DoubleResponse>(httpClient, requestUri, request)
             .Result.Value;
     }

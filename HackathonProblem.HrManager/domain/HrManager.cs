@@ -42,7 +42,7 @@ public class HrManager(IHrDirector director) : IHrManager
             var teamLead = teamLeadsMap[teamLeadId];
             result2.Add(new Team(teamLead, junior));
         }
-
+        
         var harmonization1 =
             director.CalculateTeamsHarmonization(result1, teamLeadsWishlistsList, juniorsWishlistsList);
         var harmonization2 =

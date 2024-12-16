@@ -22,7 +22,7 @@ public class WishlistDeclarationConsumer(
 
         logger.LogInformation("Received wishlist from {DeveloperType}-{DeveloperId} for hackathon-{Hackathon}",
             message.DeveloperType, message.DeveloperId, message.HackathonId);
-        
+
         SaveWishlist(message);
 
         lock (locker)

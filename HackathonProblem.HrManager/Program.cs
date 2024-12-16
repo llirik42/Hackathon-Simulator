@@ -42,7 +42,7 @@ builder.Services.AddMassTransit(x =>
             h.Username("hackathon");
             h.Password("password");
         });
-        cfg.ReceiveEndpoint("wishlists", e =>
+        cfg.ReceiveEndpoint("manager-wishlists", e =>
         {
             e.ConfigureConsumer<WishlistDeclarationConsumer>(context);
         });

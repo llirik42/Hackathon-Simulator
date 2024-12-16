@@ -24,7 +24,6 @@ builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<CsvConfig>>()
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<DbConfig>>().Value);
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<HrDirectorConfig>>().Value);
 
-builder.Services.AddHealthChecks();
 builder.Services.AddDbContextFactory<PostgresContext>();
 builder.Services.AddTransient<IStorageService, DbStorageService<PostgresContext>>();
 builder.Services.AddSingleton<IEmployeeProvider, CsvEmployeeProvider>();
@@ -45,7 +44,7 @@ builder.Services.AddMassTransit(x =>
             h.Username("hackathon");
             h.Password("password");
         });
-        cfg.ReceiveEndpoint("wishlists", e =>
+        cfg.ReceiveEndpoint("director-wishlists", e =>
         {
             e.ConfigureConsumer<WishlistDeclarationConsumer>(context);
         });
@@ -55,7 +54,6 @@ builder.Services.AddMassTransit(x =>
 
 var app = builder.Build();
 
-app.MapHealthChecks("/health");
 app.UseRouting();
 
 #pragma warning disable ASP0014
