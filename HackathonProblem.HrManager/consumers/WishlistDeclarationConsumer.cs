@@ -20,7 +20,7 @@ public class WishlistDeclarationConsumer(
     {
         var message = context.Message;
 
-        logger.LogInformation("Received wishlist from {DeveloperType}-{DeveloperId} for hackathon {Hackathon}",
+        logger.LogInformation("Received wishlist from {DeveloperType}-{DeveloperId} for hackathon-{Hackathon}",
             message.DeveloperType, message.DeveloperId, message.HackathonId);
         
         SaveWishlist(message);
