@@ -27,7 +27,8 @@
       <Content Include="appsettings.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-        
+
       <ProjectReference Include="..\HackathonProblem.RandomWishlistsProvider\HackathonProblem.RandomWishlistsProvider.csproj" />
+        
     </ItemGroup>
 </Project>
