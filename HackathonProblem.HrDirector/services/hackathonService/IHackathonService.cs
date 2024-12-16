@@ -5,7 +5,7 @@ namespace HackathonProblem.HrDirector.services.hackathonService;
 
 public interface IHackathonService
 {
-    void SetCurrentHackathonId(int hackathonId);
+    void StartNewHackathon();
     
     void ProcessTeams(List<ShortTeam> teams);
 

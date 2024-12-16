@@ -45,6 +45,8 @@ services:
       Db__ConnectionString: Host=postgres;Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
       HrDirector__JuniorsUrl: ${JUNIORS_URL}
       HrDirector__TeamLeadsUrl: ${TEAM_LEADS_URL}
+      HrDirector__EmployeeCount: ${EMPLOYEE_COUNT}
+      HrDirector__HackathonCount: ${HACKATHON_COUNT}
     ports:
       - ${HR_DIRECTOR_PORT}:${HR_DIRECTOR_PORT}
     depends_on:

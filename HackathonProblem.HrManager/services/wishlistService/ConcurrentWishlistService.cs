@@ -19,14 +19,18 @@ public class ConcurrentWishlistService : IWishlistService
         _teamLeadsWishlists.Enqueue(wishlist);
     }
 
-    public List<Wishlist> GetJuniorsWishlists()
+    public List<Wishlist> PopJuniorsWishlists()
     {
-        return _juniorsWishlists.ToList();
+        var result = _juniorsWishlists.ToList();
+        _juniorsWishlists.Clear();
+        return result;
     }
 
-    public List<Wishlist> GetTeamLeadsWishlists()
+    public List<Wishlist> PopTeamLeadsWishlists()
     {
-        return _teamLeadsWishlists.ToList();
+        var result = _teamLeadsWishlists.ToList();
+        _teamLeadsWishlists.Clear();
+        return result;
     }
 
     public bool MatchJuniorsWishlistsCount(int count)

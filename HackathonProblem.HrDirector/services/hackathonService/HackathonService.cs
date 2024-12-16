@@ -2,9 +2,11 @@ using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.domain.entities;
 using HackathonProblem.Common.mapping;
 using HackathonProblem.Common.models;
+using HackathonProblem.Common.models.message;
 using HackathonProblem.HrDirector.models;
 using HackathonProblem.HrDirector.services.hackathonOrganizer;
 using HackathonProblem.HrDirector.services.storageService;
+using MassTransit;
 
 namespace HackathonProblem.HrDirector.services.hackathonService;
 
@@ -14,22 +16,38 @@ public class HackathonService(
     IEmployeeProvider employeeProvider,
     IHackathonOrganizer hackathonOrganizer,
     TeamMapper teamMapper,
+    IBus bus,
     ILogger<HackathonService> logger) : IHackathonService
 {
-    private const int NoHackathonId = -1;
-    private readonly List<Wishlist> _juniorsWishlists = [];
-    private readonly List<Wishlist> _teamLeadsWishlists = [];
-    private int _hackathonId = NoHackathonId;
-
     private List<ShortTeam> _teams = [];
+    private List<Wishlist> _juniorsWishlists = [];
+    private List<Wishlist> _teamLeadsWishlists = [];
+    private int _hackathonId;
+    private int _hackathonCount;
 
-    public void SetCurrentHackathonId(int hackathonId)
+    public void StartNewHackathon()
     {
         lock (this)
         {
-            _hackathonId = hackathonId;
-            Check();
+            StartHackathonWithoutLock();
         }
+    }
+    
+    private void StartHackathonWithoutLock()
+    {
+        var hackathonId = storageService.CreateHackathon();
+        logger.LogInformation("Hackathon-{Hackathon} has started", hackathonId);
+        
+        _hackathonId = hackathonId;
+        _teams = [];
+        _juniorsWishlists = [];
+        _teamLeadsWishlists = [];
+        _hackathonCount++;
+        
+        var message = new HackathonDeclaration { HackathonId = hackathonId };
+        
+        bus.Publish(message);
+        logger.LogInformation("Sent declaration of hackathon {Hackathon}", hackathonId);
     }
 
     public void ProcessTeams(List<ShortTeam> teams)
@@ -62,16 +80,22 @@ public class HackathonService(
     private void Check()
     {
         var employeeCount = config.EmployeeCount;
-
+        
         var f1 = _teams.Count == employeeCount;
         var f2 = _juniorsWishlists.Count == employeeCount;
         var f3 = _teamLeadsWishlists.Count == employeeCount;
-        var f4 = _hackathonId != NoHackathonId;
 
-        if (f1 && f2 && f3 && f4) UpdateHackathonData();
+        if (!f1 || !f2 || !f3) return;
+        
+        UpdateCurrentHackathonData();
+
+        if (_hackathonCount < config.HackathonCount)
+        {
+            StartHackathonWithoutLock();
+        }
     }
 
-    private void UpdateHackathonData()
+    private void UpdateCurrentHackathonData()
     {
         var juniors = employeeProvider.Provide(config.JuniorsUrl);
         var teamLeads = employeeProvider.Provide(config.TeamLeadsUrl);

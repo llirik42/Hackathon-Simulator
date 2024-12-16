@@ -33,8 +33,8 @@ public class WishlistDeclarationConsumer(
             if (!matchJuniors || !matchTeamLeads) return Task.CompletedTask;
 
             var hackathonId = message.HackathonId;
-            var juniorsWishlists = wishlistService.GetJuniorsWishlists();
-            var teamLeadsWishlists = wishlistService.GetTeamLeadsWishlists();
+            var juniorsWishlists = wishlistService.PopJuniorsWishlists();
+            var teamLeadsWishlists = wishlistService.PopTeamLeadsWishlists();
             
             var response = teamService.BuildTeamsAndPost(hackathonId, juniorsWishlists, teamLeadsWishlists);
             logger.LogInformation("Received response from director: {Response}", response.Detail);

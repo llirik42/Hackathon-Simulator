@@ -8,9 +8,9 @@ public interface IWishlistService
 
     void AddTeamLeadWishlist(Wishlist wishlist);
 
-    List<Wishlist> GetJuniorsWishlists();
+    List<Wishlist> PopJuniorsWishlists();
 
-    List<Wishlist> GetTeamLeadsWishlists();
+    List<Wishlist> PopTeamLeadsWishlists();
 
     bool MatchJuniorsWishlistsCount(int count);
     

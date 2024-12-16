@@ -7,4 +7,6 @@ public class HrDirectorConfig
     public string TeamLeadsUrl { get; set; }
     
     public int EmployeeCount { get; set; }
+    
+    public int HackathonCount { get; set; }
 }

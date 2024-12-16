@@ -9,7 +9,6 @@
     <ItemGroup>
       <ProjectReference Include="..\HackathonProblem.Common\HackathonProblem.Common.csproj" />
       <ProjectReference Include="..\HackathonProblem.CsvEmployeeProvider\HackathonProblem.CsvEmployeeProvider.csproj" />
-      <ProjectReference Include="..\HackathonProblem.RandomWishlistsProvider\HackathonProblem.RandomWishlistsProvider.csproj" />
 
         <Content Include="..\assets\**">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>

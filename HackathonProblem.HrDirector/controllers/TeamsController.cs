@@ -12,7 +12,6 @@ public class TeamsController(IHackathonService hackathonService, ILogger<TeamsCo
     {
         var hackathonId = request.HackathonId;
         logger.LogInformation("Received teams of hackathon-{HackathonId}", hackathonId);
-        hackathonService.SetCurrentHackathonId(hackathonId);
         hackathonService.ProcessTeams(request.Teams);
         return new DetailResponse("Teams accepted");
     }
