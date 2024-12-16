@@ -13,7 +13,7 @@ public class HackathonDeclarationConsumer(
     IEmployeeProvider employeeProvider,
     IWishlistProvider wishlistProvider,
     IBus bus,
-    ILogger<HackathonDeclarationConsumer> logger) : IConsumer<HackathonDeclaration>
+    ILogger<HackathonDeclarationConsumer> logger) : IConsumer
 {
     public Task Consume(ConsumeContext<HackathonDeclaration> context)
     {

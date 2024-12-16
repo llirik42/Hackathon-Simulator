@@ -1,12 +1,13 @@
 using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.Common.mapping;
-using HackathonProblem.Common.models.message;
 using HackathonProblem.CsvEmployeeProvider;
+using HackathonProblem.HrDirector.consumers;
 using HackathonProblem.HrDirector.db;
 using HackathonProblem.HrDirector.db.contexts;
 using HackathonProblem.HrDirector.domain;
 using HackathonProblem.HrDirector.models;
 using HackathonProblem.HrDirector.services.hackathonOrganizer;
+using HackathonProblem.HrDirector.services.hackathonService;
 using HackathonProblem.HrDirector.services.storageService;
 using HackathonProblem.HrDirector.workers;
 using MassTransit;
@@ -23,17 +24,20 @@ builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<CsvConfig>>()
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<DbConfig>>().Value);
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<HrDirectorConfig>>().Value);
 
+builder.Services.AddHealthChecks();
 builder.Services.AddDbContextFactory<PostgresContext>();
 builder.Services.AddTransient<IStorageService, DbStorageService<PostgresContext>>();
 builder.Services.AddSingleton<IEmployeeProvider, CsvEmployeeProvider>();
 builder.Services.AddSingleton<IHackathonOrganizer, HackathonOrganizer>();
 builder.Services.AddSingleton<IHrDirector, HrDirector>();
 builder.Services.AddSingleton(_ => new TeamMapper());
+builder.Services.AddSingleton<IHackathonService, HackathonService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHostedService<HackathonDeclarationWorker>();
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumer<WishlistDeclarationConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host("rabbitmq", "/", h =>
@@ -41,12 +45,17 @@ builder.Services.AddMassTransit(x =>
             h.Username("hackathon");
             h.Password("password");
         });
+        cfg.ReceiveEndpoint("wishlists", e =>
+        {
+            e.ConfigureConsumer<WishlistDeclarationConsumer>(context);
+        });
         cfg.ConfigureEndpoints(context);
     });
 });
 
 var app = builder.Build();
 
+app.MapHealthChecks("/health");
 app.UseRouting();
 
 #pragma warning disable ASP0014

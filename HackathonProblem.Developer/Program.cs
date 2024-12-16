@@ -1,5 +1,6 @@
 ﻿using HackathonProblem.Common.domain.contracts;
 using HackathonProblem.CsvEmployeeProvider;
+using HackathonProblem.Developer.consumers;
 using HackathonProblem.Developer.models;
 using HackathonProblem.RandomWishlistsProvider;
 using MassTransit;
@@ -17,8 +18,10 @@ builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<DeveloperConf
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<IEmployeeProvider, CsvEmployeeProvider>();
 builder.Services.AddSingleton<IWishlistProvider, RandomWishlistsProvider>();
+
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumer<HackathonDeclarationConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host("rabbitmq", "/", h =>
@@ -26,9 +29,14 @@ builder.Services.AddMassTransit(x =>
             h.Username("hackathon");
             h.Password("password");
         });
+        cfg.ReceiveEndpoint($"developer-{Guid.NewGuid()}", e =>
+        {
+            e.ConfigureConsumer<HackathonDeclarationConsumer>(context);
+        });
         cfg.ConfigureEndpoints(context);
     });
 });
+
 var host = builder.Build();
 
 host.Run();

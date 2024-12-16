@@ -13,7 +13,8 @@ public class HackathonDeclarationWorker(
     {
         var hackathonId = storageService.CreateHackathon();
         logger.LogInformation("Hackathon {Hackathon} has started", hackathonId);
-        bus.Publish(new HackathonDeclaration { HackathonId = hackathonId }, cancellationToken);
+        var message = new HackathonDeclaration { HackathonId = hackathonId };
+        bus.Publish(message, cancellationToken);
         logger.LogInformation("Sent declaration of hackathon {Hackathon}", hackathonId);
         return Task.CompletedTask;
     }

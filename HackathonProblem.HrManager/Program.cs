@@ -34,12 +34,17 @@ builder.Services.AddHttpClient();
 builder.Services.AddSingleton(_ => new Locker());
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumer<WishlistDeclarationConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host("rabbitmq", "/", h =>
         {
             h.Username("hackathon");
             h.Password("password");
+        });
+        cfg.ReceiveEndpoint("wishlists", e =>
+        {
+            e.ConfigureConsumer<WishlistDeclarationConsumer>(context);
         });
         cfg.ConfigureEndpoints(context);
     });
