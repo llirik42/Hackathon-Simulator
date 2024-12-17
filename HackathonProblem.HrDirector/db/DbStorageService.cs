@@ -114,7 +114,7 @@ public class DbStorageService<T>(IDbContextFactory<T> factory) : IStorageService
         _db.Hackathons.Add(hackathonEntity);
         _db.SaveChanges();
 
-        return new CreatedHackathon(hackathonEntity.Id, hackathonEntity.Harmonization);
+        return new CreatedHackathon(hackathonEntity.Id);
     }
 
     public void SetHackathonHarmonization(int hackathonId, double harmonization)
