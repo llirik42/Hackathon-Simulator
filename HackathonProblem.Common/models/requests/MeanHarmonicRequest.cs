@@ -4,5 +4,5 @@ namespace HackathonProblem.Common.models.requests;
 
 public class MeanHarmonicRequest
 {
-    [Required] public required double[] Numbers { get; set; }
+    [Required] public required double[] Numbers { get; init; }
 }
