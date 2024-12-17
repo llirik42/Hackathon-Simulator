@@ -15,7 +15,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     ports:
-      - ${DB_PORT}:5432
+      - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 5s
@@ -25,8 +25,8 @@ services:
     image: rabbitmq:3.9-management
     container_name: rabbitmq
     ports:
-      - ${RABBITMQ_PORT}:5672
-      - ${RABBITMQ_UI_PORT}:15672
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
@@ -47,6 +47,10 @@ services:
       HrDirector__TeamLeadsUrl: ${TEAM_LEADS_URL}
       HrDirector__EmployeeCount: ${EMPLOYEE_COUNT}
       HrDirector__HackathonCount: ${HACKATHON_COUNT}
+      RabbitMQ__Host: rabbitmq
+      RabbitMQ__Port: ${RABBITMQ_PORT}
+      RabbitMQ__User: ${RABBITMQ_USER}
+      RabbitMQ__Password: ${RABBITMQ_PASSWORD}
     ports:
       - ${HR_DIRECTOR_PORT}:${HR_DIRECTOR_PORT}
     depends_on:
@@ -84,6 +88,10 @@ services:
       HrManager__EmployeeCount: ${EMPLOYEE_COUNT}
       HrManager__JuniorsUrl: ${JUNIORS_URL}
       HrManager__TeamLeadsUrl: ${TEAM_LEADS_URL}
+      RabbitMQ__Host: rabbitmq
+      RabbitMQ__Port: ${RABBITMQ_PORT}
+      RabbitMQ__User: ${RABBITMQ_USER}
+      RabbitMQ__Password: ${RABBITMQ_PASSWORD}
     depends_on:
       rabbitmq:
         condition: service_healthy    
@@ -99,6 +107,10 @@ services:
       Developer__TeamLeadsUrl: ${TEAM_LEADS_URL}
       Developer__Id: 1
       Developer__Type: Junior
+      RabbitMQ__Host: rabbitmq
+      RabbitMQ__Port: ${RABBITMQ_PORT}
+      RabbitMQ__User: ${RABBITMQ_USER}
+      RabbitMQ__Password: ${RABBITMQ_PASSWORD}
     depends_on:
       rabbitmq:
         condition: service_healthy

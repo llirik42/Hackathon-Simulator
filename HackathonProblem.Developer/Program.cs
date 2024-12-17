@@ -25,17 +25,18 @@ builder.Services.AddSingleton<IWishlistProvider>(x =>
     var seed = (int)Math.Pow(powerBase, developerId);
     return ActivatorUtilities.CreateInstance<RandomWishlistsProvider>(x, seed);
 });
-
+builder.Services.AddOptions<RabbitMqTransportOptions>().Configure(options =>
+{
+    options.Host = builder.Configuration["RabbitMQ:Host"] ?? "localhost";
+    options.Port = ushort.Parse(builder.Configuration["RabbitMQ:Port"] ?? "5672");
+    options.User = builder.Configuration["RabbitMQ:User"] ?? "user";
+    options.Pass = builder.Configuration["RabbitMQ:Password"] ?? "password";
+});
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumer<HackathonDeclarationConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host("rabbitmq", "/", h =>
-        {
-            h.Username("hackathon");
-            h.Password("password");
-        });
         cfg.ReceiveEndpoint($"developer-{Guid.NewGuid()}", e =>
         {
             e.ConfigureConsumer<HackathonDeclarationConsumer>(context);
