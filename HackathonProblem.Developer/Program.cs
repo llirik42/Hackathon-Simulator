@@ -17,7 +17,14 @@ builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<CsvConfig>>()
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<DeveloperConfig>>().Value);
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<IEmployeeProvider, CsvEmployeeProvider>();
-builder.Services.AddSingleton<IWishlistProvider, RandomWishlistsProvider>();
+builder.Services.AddSingleton<IWishlistProvider>(x =>
+{
+    var developerId = int.Parse(builder.Configuration["Developer:Id"] ?? "0");
+    var developerType = builder.Configuration["Developer:Type"] ?? "Junior";
+    var powerBase = developerType == "Junior" ? 2 : 3;
+    var seed = (int)Math.Pow(powerBase, developerId);
+    return ActivatorUtilities.CreateInstance<RandomWishlistsProvider>(x, seed);
+});
 
 builder.Services.AddMassTransit(x =>
 {
