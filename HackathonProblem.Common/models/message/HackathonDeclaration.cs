@@ -2,5 +2,5 @@ namespace HackathonProblem.Common.models.message;
 
 public class HackathonDeclaration
 {
-    public int HackathonId { get; set; }
+    public required int HackathonId { get; init; }
 }

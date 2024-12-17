@@ -2,11 +2,11 @@ namespace HackathonProblem.Common.models.message;
 
 public class WishlistDeclaration
 {
-    public int DeveloperId { get; set; }
+    public required int DeveloperId { get; init; }
     
-    public DeveloperType DeveloperType { get; set; }
+    public required DeveloperType DeveloperType { get; init; }
     
-    public int[] DesiredEmployees { get; set; }
+    public required int[] DesiredEmployees { get; init; }
 
-    public int HackathonId { get; set; }
+    public required int HackathonId { get; init; }
 }

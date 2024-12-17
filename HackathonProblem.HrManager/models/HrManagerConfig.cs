@@ -2,9 +2,9 @@ namespace HackathonProblem.HrManager.models;
 
 public class HrManagerConfig
 {
-    public string JuniorsUrl { get; set; }
+    public required string JuniorsUrl { get; init; }
     
-    public string TeamLeadsUrl { get; set; }
+    public required string TeamLeadsUrl { get; init; }
     
-    public int EmployeeCount { get; set; }
+    public required int EmployeeCount { get; init; }
 }
